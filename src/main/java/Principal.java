@@ -59,9 +59,34 @@ public class Principal {
                                 break;
                             }
                             case 3: {
+                                concontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                                + "Sistema de Contas a Pagar\n"
+                                + "\n"
+                                + "Consulta de Contas\n"
+                                + "\n"
+                                + "Documento: \n"
+                                + "Descrição: \n"
+                                + "Beneficiário: \n"
+                                + "Valor: \n"
+                                + "Vencimento \n"
+                                + "\n"
+                                + "Nova consulta? (Y/N) \n"));
                                 break;
                             }
                             case 4: {
+                                excontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                                + "Sistema de Contas a Pagar\n"
+                                + "\n"
+                                + "Exclusão de Contas\n"
+                                + "\n"
+                                + "Documento: \n"
+                                + "Descrição: \n"
+                                + "Beneficiário: \n"
+                                + "Valor: \n"
+                                + "Vencimento \n"
+                                + "\n"
+                                + "Confirmar exclusão? (Y/N) \n"
+                                + "Nova exclusão? (Y/N) \n"));
                                 break;
                             }
 
