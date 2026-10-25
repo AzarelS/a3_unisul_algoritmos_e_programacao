@@ -53,6 +53,7 @@ public class Principal {
                         // Verificação da opção escolhida para o menu de Cadastro de Contas
                         switch (cadcontas) {
                             case 1: {
+
                                 break;
                             }
                             case 2: {
@@ -60,33 +61,33 @@ public class Principal {
                             }
                             case 3: {
                                 concontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                + "Sistema de Contas a Pagar\n"
-                                + "\n"
-                                + "Consulta de Contas\n"
-                                + "\n"
-                                + "Documento: \n"
-                                + "Descrição: \n"
-                                + "Beneficiário: \n"
-                                + "Valor: \n"
-                                + "Vencimento \n"
-                                + "\n"
-                                + "Nova consulta? (Y/N) \n"));
+                                        + "Sistema de Contas a Pagar\n"
+                                        + "\n"
+                                        + "Consulta de Contas\n"
+                                        + "\n"
+                                        + "Documento: \n"
+                                        + "Descrição: \n"
+                                        + "Beneficiário: \n"
+                                        + "Valor: \n"
+                                        + "Vencimento \n"
+                                        + "\n"
+                                        + "Nova consulta? (Y/N) \n"));
                                 break;
                             }
                             case 4: {
                                 excontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                + "Sistema de Contas a Pagar\n"
-                                + "\n"
-                                + "Exclusão de Contas\n"
-                                + "\n"
-                                + "Documento: \n"
-                                + "Descrição: \n"
-                                + "Beneficiário: \n"
-                                + "Valor: \n"
-                                + "Vencimento \n"
-                                + "\n"
-                                + "Confirmar exclusão? (Y/N) \n"
-                                + "Nova exclusão? (Y/N) \n"));
+                                        + "Sistema de Contas a Pagar\n"
+                                        + "\n"
+                                        + "Exclusão de Contas\n"
+                                        + "\n"
+                                        + "Documento: \n"
+                                        + "Descrição: \n"
+                                        + "Beneficiário: \n"
+                                        + "Valor: \n"
+                                        + "Vencimento \n"
+                                        + "\n"
+                                        + "Confirmar exclusão? (Y/N) \n"
+                                        + "Nova exclusão? (Y/N) \n"));
                                 break;
                             }
 
@@ -108,6 +109,40 @@ public class Principal {
                     break;
                 }
                 case 3: {
+                    int menurelatorio = 1;
+                    do {
+                        relatorios = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                                + "Sistema de Contas a Pagar\n"
+                                + "\n"
+                                + "Relatórios\n"
+                                + "\n"
+                                + "1 - Contas a pagar\n"
+                                + "2 - Contas atrasadas\n"
+                                + "3 - Balanço de despesas\n"
+                                + "0 - Retornar\n"
+                                + "\n"
+                                + "Digite a opção desejada: \n"));
+                        switch (relatorios) {
+                            case 1: {
+                                break;
+                            }
+                            case 2: {
+                                break;
+                            }
+                            case 3: {
+                                break;
+                            }
+                            case 0: {
+                                menurelatorio = 0;
+                                JOptionPane.showMessageDialog(null, "Retornando...");
+                                break;
+                            }
+                            default: {
+                                JOptionPane.showMessageDialog(null, "Opção Inexistente");
+                                break;
+                            }
+                        }
+                    } while (menurelatorio != 0);
                     break;
                 }
 
