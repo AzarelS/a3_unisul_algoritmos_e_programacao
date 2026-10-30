@@ -93,6 +93,7 @@ public class Principal {
 
                                     }
                                 } while (resposta != 'N');
+                                break;
 
                             }
                             case 4: {
@@ -123,7 +124,7 @@ public class Principal {
                             }
                         }
 
-                        break;
+                        
                     } while (cadcontas != 0);
                 }
 
