@@ -124,11 +124,31 @@ public class Principal {
                             }
                         }
 
-                        
                     } while (cadcontas != 0);
                 }
 
                 case 2: {
+                    // Menu de Baixa de Contas
+                    baicontas = -1;
+                    do {
+                        baicontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                                + "Sistema de Contas a Pagar\n"
+                                + "\n"
+                                + "Movimentação - Baixa de Conta\n"
+                                + "\n"
+                                + "Documento :\n"
+                                + "Valor atual :\n"
+                                + "\n"
+                                + "Valor pago :\n"
+                                + "\n"
+                                + "Valor final :\n"
+                                + "\n"
+                                + "Confirmar baixa (S/N)? __\n"
+                                + "\n"
+                                + "Nova baixa (S/N)? __\n"));
+
+                    } while (baicontas != 0);
+
                     break;
                 }
                 case 3: {
