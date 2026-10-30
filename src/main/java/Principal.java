@@ -35,8 +35,9 @@ public class Principal {
             switch (menuprincipal) {
                 case 1: {
                     do {
-
                         // Menu de Cadastro de Contas
+                        cadcontas = -1;
+
                         cadcontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
                                 + "Sistema de Contas a Pagar\n"
                                 + "\n"
@@ -92,6 +93,7 @@ public class Principal {
                             }
 
                             case 0: {
+                                cadcontas = -1;
                                 JOptionPane.showMessageDialog(null, "Retornando...");
                                 break;
                             }
@@ -109,7 +111,9 @@ public class Principal {
                     break;
                 }
                 case 3: {
-                    int menurelatorio = 1;
+
+                    // Menu de Cadastro de Contas
+                    relatorios = -1;
                     do {
                         relatorios = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
                                 + "Sistema de Contas a Pagar\n"
@@ -122,6 +126,8 @@ public class Principal {
                                 + "0 - Retornar\n"
                                 + "\n"
                                 + "Digite a opção desejada: \n"));
+
+                        // Verificação da opção escolhida para o menu de Cadastro de Contas
                         switch (relatorios) {
                             case 1: {
                                 break;
@@ -133,7 +139,7 @@ public class Principal {
                                 break;
                             }
                             case 0: {
-                                menurelatorio = 0;
+                                relatorios = -1;
                                 JOptionPane.showMessageDialog(null, "Retornando...");
                                 break;
                             }
@@ -142,13 +148,13 @@ public class Principal {
                                 break;
                             }
                         }
-                    } while (menurelatorio != 0);
+                    } while (relatorios != 0);
                     break;
                 }
 
                 // Outras Opções
                 case 0: {
-                    JOptionPane.showMessageDialog(null, "Saindo do Programa.");
+                    JOptionPane.showMessageDialog(null, "Saindo do Programa");
                     break;
                 }
 
