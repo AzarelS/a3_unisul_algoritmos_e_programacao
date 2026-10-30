@@ -7,7 +7,8 @@ public class Principal {
 
         // Variaveis:
         int menuprincipal, cadcontas, inccontas, altcontas, concontas, excontas, baicontas, relatorios;
-
+        char resposta;
+        // resposta = variavel tipo char para responder S/N
         // cadcontas: cadastro de  contas
         // inccontas: inclusão de conta
         // altcontas: alteração de conta
@@ -61,19 +62,38 @@ public class Principal {
                                 break;
                             }
                             case 3: {
-                                concontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                        + "Sistema de Contas a Pagar\n"
-                                        + "\n"
-                                        + "Consulta de Contas\n"
-                                        + "\n"
-                                        + "Documento: \n"
-                                        + "Descrição: \n"
-                                        + "Beneficiário: \n"
-                                        + "Valor: \n"
-                                        + "Vencimento \n"
-                                        + "\n"
-                                        + "Nova consulta? (Y/N) \n"));
-                                break;
+                                // Repetição para conulta de contas caso queira-se consultar mais de uma conta
+                                do {
+                                    resposta = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                                            + "Sistema de Contas a Pagar\n"
+                                            + "\n"
+                                            + "Consulta de Contas\n"
+                                            + "\n"
+                                            + "Documento: \n"
+                                            + "Descrição: \n"
+                                            + "Beneficiário: \n"
+                                            + "Valor: \n"
+                                            + "Vencimento \n"
+                                            + "\n"
+                                            + "Nova consulta? (S/N) \n").charAt(0);
+
+                                    resposta = Character.toUpperCase(resposta);
+
+                                    if (resposta == 'S') {
+
+                                        // Continua realizando consultas
+                                    } else if (resposta == 'N') {
+
+                                        // Retorna ao menu de cadastro de contas
+                                        break;
+
+                                    } else {
+
+                                        JOptionPane.showMessageDialog(null, "Resposta inválida!");
+
+                                    }
+                                } while (resposta != 'N');
+
                             }
                             case 4: {
                                 excontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
@@ -87,8 +107,8 @@ public class Principal {
                                         + "Valor: \n"
                                         + "Vencimento \n"
                                         + "\n"
-                                        + "Confirmar exclusão? (Y/N) \n"
-                                        + "Nova exclusão? (Y/N) \n"));
+                                        + "Confirmar exclusão? (S/N) \n"
+                                        + "Nova exclusão? (S/N) \n"));
                                 break;
                             }
 
