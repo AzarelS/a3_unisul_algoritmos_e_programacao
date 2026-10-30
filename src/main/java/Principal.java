@@ -75,7 +75,7 @@ public class Principal {
                                             + "Valor: \n"
                                             + "Vencimento \n"
                                             + "\n"
-                                            + "Nova consulta? (S/N) \n").charAt(0);
+                                            + "Nova consulta (S/N)? __\n").charAt(0);
 
                                     resposta = Character.toUpperCase(resposta);
 
@@ -108,8 +108,9 @@ public class Principal {
                                         + "Valor: \n"
                                         + "Vencimento \n"
                                         + "\n"
-                                        + "Confirmar exclusão? (S/N) \n"
-                                        + "Nova exclusão? (S/N) \n"));
+                                        + "Confirmar exclusão (S/N)? __\n"
+                                        + "\n"
+                                        + "Nova exclusão (S/N)? __\n"));
                                 break;
                             }
 
