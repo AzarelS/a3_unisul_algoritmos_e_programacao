@@ -192,8 +192,8 @@ public class Principal {
                                 do {
                                     String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
                                             +"SISTEMA DE CONTAS A PAGAR\n\n"
-                                            +"--Consulta de Contas--\n\n"
-                                            +"Informe o número do documento para consulta: ");
+                                            +"CONSULTA DE CONTA\n\n"
+                                            +"Informe o número do documento para consulta:");
                                     
                                     if (entradadoc == null){
                                         break;
@@ -225,6 +225,20 @@ public class Principal {
                                             indiceEncontrado = i;
                                         break;
                                         }
+                                    }
+                                    
+                                    if (indiceEncontrado != -1) {
+                                        String msg = ("\t\t XYZ COMERCIO DE PRODUTOS LTDA.\n")
+                                                +"\tSISTEMA DE CONTAS A PAGAR\n\n"
+                                                +"\tCONSULTA DE CONTA\n\n"
+                                                +"Documento: " + documentos[indiceEncontrado] + "\n"
+                                                +"Descrição: " + descs[indiceEncontrado] + "\n"
+                                                +"Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
+                                                +"Valor: R$ " + valores[indiceEncontrado] + "\n"
+                                                +"Vencimento: " + vencimentos[indiceEncontrado] + "\n";
+                                        JOptionPane.showMessageDialog(null, msg);
+                                    }else{
+                                        JOptionPane.showMessageDialog(null, "Documento não encontrado");
                                     }
                                     
                                     String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)?");
