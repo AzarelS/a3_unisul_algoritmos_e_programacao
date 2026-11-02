@@ -187,39 +187,24 @@ public class Principal {
                                 break;
                             }
                             case 3: {
-                                // Repetição para conulta de contas caso queira-se consultar mais de uma conta
+                                // CONSULTA DE CONTA
+                                char novaconsulta = 'N';
                                 do {
-                                    resposta = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                            + "Sistema de Contas a Pagar\n"
-                                            + "\n"
-                                            + "Consulta de Contas\n"
-                                            + "\n"
-                                            + "Documento: \n"
-                                            + "Descrição: \n"
-                                            + "Beneficiário: \n"
-                                            + "Valor: \n"
-                                            + "Vencimento \n"
-                                            + "\n"
-                                            + "Nova consulta (S/N)? __\n").charAt(0);
-
-                                    resposta = Character.toUpperCase(resposta);
-
-                                    if (resposta == 'S') {
-
-                                        // Continua realizando consultas
-                                    } else if (resposta == 'N') {
-
-                                        // Retorna ao menu de cadastro de contas
+                                    String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                                            +"SISTEMA DE CONTAS A PAGAR\n"
+                                            +"--Consulta de Contas--\n\n"
+                                            +"Informe o número do documento para consulta: ");
+                                    if (entradadoc == null){
                                         break;
-
-                                    } else {
-
-                                        JOptionPane.showMessageDialog(null, "Resposta inválida!");
-
                                     }
-                                } while (resposta != 'N');
+                                    String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)?");
+                                    if (resp != null && !resp.trim().isEmpty()){
+                                        novaconsulta = Character.toUpperCase(resp.trim().charAt(0));
+                                    }else{
+                                        novaconsulta = 'N';
+                                    }
+                                } while (novaconsulta == 'S');
                                 break;
-
                             }
                             case 4: {
                                 excontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
