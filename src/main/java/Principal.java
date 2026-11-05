@@ -255,26 +255,90 @@ public class Principal {
                             }
                             
                             case 4: {
-                                excontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                        + "Sistema de Contas a Pagar\n"
-                                        + "\n"
-                                        + "Exclusão de Contas\n"
-                                        + "\n"
-                                        + "Documento: \n"
-                                        + "Descrição: \n"
-                                        + "Beneficiário: \n"
-                                        + "Valor: \n"
-                                        + "Vencimento \n"
-                                        + "\n"
-                                        + "Confirmar exclusão (S/N)? __\n"
-                                        + "\n"
-                                        + "Nova exclusão (S/N)? __\n"));
+                                char NovaExc = 'N';
+                                do{
+                                String ContaExc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                                        + "SISTEMA DE CONTAS A PAGAR\n"
+                                        + "EXCLUIR CONTA\n"
+                                        + "INFORME O NUMERO DO DOCUMENTO A SER EXCLUIDA: ");
+                                if(ContaExc == null){
+                                    break;
+                                }
+                                ContaExc = ContaExc.trim();
+                                    
+                                    boolean ehNumero = !ContaExc.isEmpty();
+                                    
+                                    for (int i=0; i<ContaExc.length(); i++){
+                                        if (!Character.isDigit(ContaExc.charAt(i))){
+                                            ehNumero = false;
+                                        break;
+                                        }
+                                    }
+                                    
+                                    if(!ehNumero){
+                                        JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
+                                        NovaExc = 'S';
+                                        continue;
+                                    }
+                                    
+                                    int docExc = Integer.parseInt(ContaExc);
+                                    
+                                    int indiceEncontrado = -1;
+                                    
+                                    for (int i=0; i<total; i++){
+                                        if(documentos[i] == docExc){
+                                            indiceEncontrado = i;
+                                        break;
+                                        }
+                                    }
+                                    
+                                    if (indiceEncontrado != -1) {
+                                        String msg = ("\t\t XYZ COMERCIO DE PRODUTOS LTDA.\n")
+                                                +"\tSISTEMA DE CONTAS A PAGAR\n\n"
+                                                +"\tEXCLUSÃO DE CONTA\n\n"
+                                                +"Documento: " + documentos[indiceEncontrado] + "\n"
+                                                +"Descrição: " + descs[indiceEncontrado] + "\n"
+                                                +"Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
+                                                +"Valor: R$ " + valores[indiceEncontrado] + "\n"
+                                                +"Vencimento: " + vencimentos[indiceEncontrado] + "\n";
+                                        JOptionPane.showMessageDialog(null, msg);
+                                        char DelConta = JOptionPane.showInputDialog(null,"CERTEZA EM EXCLUIR CONTA S/N: ").charAt(0);
+                                        if (DelConta == 'S' || DelConta == 's'){
+                                            for (int i = indiceEncontrado; i < total - 1; i++) {
+                                                documentos[i] = documentos[i + 1];
+                                                descs[i] = descs[i + 1];
+                                                beneficiarios[i] = beneficiarios[i + 1];
+                                                valores[i] = valores[i + 1];
+                                                vencimentos[i] = vencimentos[i + 1];
+                                            }
+                                        total--;
+                                        JOptionPane.showMessageDialog(null, "CONTA EXCLUÍDA COM SUCESSO!");
+                                        }else{
+                                            if(DelConta =='N' || DelConta =='n'){
+                                                JOptionPane.showMessageDialog(null, "EXCLUÇÃO CANCELADA");
+                                            }else{
+                                                JOptionPane.showMessageDialog(null, "Opção invalida");
+                                            }
+                                        }
+                                    }else{
+                                        JOptionPane.showMessageDialog(null, "Documento não encontrado");
+                                    }
+                                    
+                                    String resp = JOptionPane.showInputDialog("Deseja fazer uma outra Exclução? (S/N)?");
+                                    
+                                    if (resp != null && !resp.trim().isEmpty()){
+                                        NovaExc = Character.toUpperCase(resp.trim().charAt(0));
+                                    }else{
+                                        NovaExc = 'N';
+                                    }
+                                    
+                                } while (NovaExc == 'S');
                                 break;
                             }
 
                             case 0: {
                                 cadcontas = 0;
-                                JOptionPane.showMessageDialog(null, "Retornando...");
+                                JOptionPane.showMessageDialog(null, "Voltando");
                                 break;
                             }
                             default: {
