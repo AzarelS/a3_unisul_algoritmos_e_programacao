@@ -2,7 +2,30 @@
 import javax.swing.JOptionPane;
 
 public class Principal {
-
+    
+    //Constante para tamanho limite dos vetores
+    static int n = 100;
+    
+    //Vetores e contador declarados fora das subrotinas
+    
+    //Registra em vetores todos os documentos cadastrados
+    static int documentos[] = new int[n];
+    
+    //Registra em vetores todos os beneficiarios cadastrados
+    static String beneficiarios[] = new String[n];
+    
+    //Registra em vetores as descrições de cada conta cadastrada
+    static String descs[] = new String[n];
+    
+    //Registra em vetores todos os valores cadastrados
+    static double valores[] = new double[n];
+    
+    //Registra em vetores todas as datas de vencimento cadastradas
+    static String vencimentos[] = new String[n];
+    
+    //Controla e registra o número de contas cadastradas
+    static int total = 0;                           
+    
     public static void main(String[] args) {
 
         // Variaveis:
@@ -15,13 +38,8 @@ public class Principal {
         // concontas: consulta de conta
         // excontas: exclusão de conta
         // baicontas: baixa de conta
-        //Variaveis vetores:
-        int documentos[] = new int[100];            //Registra em vetores todos os documentos cadastrados
-        String beneficiarios[] = new String[100];   //Registra em vetores todos os beneficiarios cadastrados
-        String descs[] = new String[100];           //Registra em vetores as descrições de cada conta cadastrada
-        double valores[] = new double[100];         //Registra em vetores todos os valores cadastrados
-        String[] vencimentos = new String[100];     //Registra em vetores todas as datas de vencimento cadastradas
-        int total = 0;                              //Controla e registra o número de contas cadastradas
+        
+        //Controla e registra o número de contas cadastradas
         menuprincipal = -1;
 
         do {
