@@ -1,96 +1,46 @@
-# Sistema de contas a pagar - XYZ Comércio de Produtos LTDA
+# Exercício: Matrizes (Arrays Multidimensionais) em Java
 
-## Universidade do Sul de Santa Catarina (UNISUL)
+Repositório acadêmico destinado ao armazenamento e organização do exercícios prático desenvolvidos para a disciplina de **Algoritmos e Programação** da **UNISUL**, sob a supervisão do professor **Osmar**.
 
-**Unidade Curricular:** Algoritmos e Programação
-**Professor:** Osmar de Oliveira Braz 
+O objetivo deste projeto é consolidar o aprendizado sobre o uso de **matrizes** (estruturas de dados bidimensionais), abordando desde a alocação de memória até a manipulação, navegação por índices e aplicação em um problema complexo em linguagem Java.
 
-## Integrantes do Grupo
+## Tecnologias e Requisitos
 
-| Nome | R.A | GitHub |
-|---|---|---|
-| Matheus Pereira Gonçalves Coelho | 10726115585 | [matheuspg17](https://github.com/matheuspg17) |
-| Carlos Roberto Tosin Spada | 10725213830 | [AzarelS](https://github.com/AzarelS) |
-| André Luís Tosin Spada | 1072521300 | [andrespada-lt](https://github.com/andrespada-lt) |
-| Allan Losekann Muller | 10725213805 | [allanlosekann](https://github.com/allanlosekann) |
----
+* **Linguagem:** Java (JDK 11 ou superior)
+* **Ambiente de Desenvolvimento:** Qualquer IDE compatível com Java (Eclipse, IntelliJ IDEA, NetBeans, VS Code) ou editor de texto com terminal.
 
-## Contexto
+## Tópicos Abordados
 
-Toda empresa possui uma série de despesas e obrigações financeiras ao longo do mês. O controle eficiente do pagamento destas obrigações permite que a empresa tenha um planejamento financeiro adequado, sabendo exatamente quanto vai gastar em determinado período e podendo planejar seus investimentos com maior segurança.
+Os algoritmos presentes neste diretório cobrem os seguintes conceitos fundamentais sobre matrizes:
 
-Diante disso, torna-se essencial o desenvolvimento de sistemas de informação que automatizem o controle de contas a pagar. Esses sistemas possibilitam o acompanhamento preciso da situação das contas, o registro de baixas parciais ou totais de débitos e a geração de relatórios estratégicos para a tomada de decisão.
+* Declaração, alocação e inicialização de matrizes (`int[][]`, `double[][]`, etc.)
+* Acesso e navegação por índices (linhas e colunas)
+* Leitura de dados e preenchimento dinâmico utilizando laços aninhados (`for` encadeados)
+* Exibição de matrizes formatadas no console
+* Manipulação de elementos (soma de elementos, busca de maior/menor valor, contagem)
+* Operações com diagonais (Diagonal Principal e Diagonal Secundária em matrizes quadradas)
+* Transposição e operações aritméticas entre matrizes (soma, multiplicação)
 
-Neste cenário, o projeto consiste no desenvolvimento do software de contas a pagar, simulando uma situação real do cotidiano empresarial, aplicando conceitos de lógica de programação e estruturas de dados.
+## Instruções de Compilação e Execução
 
----
+Para executar os códigos através da linha de comando, siga os passos abaixo:
 
-## Objetivo
+1. Abra o terminal no diretório onde o arquivo `.java` desejado está localizado.
 
-Desenvolver um sistema de gestão de contas a pagar capaz de cadastrar obrigações financeiras, registrar movimentações de liquidação (baixas), realizar validações de dados e gerar relatórios gerenciais por período, utilizando a linguagem Java e aplicando boas práticas de programação.
+2. Compile o código-fonte utilizando o comando:
 
----
+   ```bash
+   javac ExercicioMatrizes.java
+   ```
 
-## Funcionalidades
+3. Execute o programa compilado com o comando:
 
-### Cadastro de Contas
+   ```bash
+   java ExercicioMatrizes
+   ```
 
-* Inclusão de novas contas a pagar (com validação de documento, valor e vencimento)
-* Alteração de dados cadastrados (exceto o número do documento)
-* Consulta individual de contas
-* Exclusão de contas cadastradas
+## Histórico Acadêmico
 
-### Movimentação (Baixa de Contas)
-
-* Registro de pagamento (baixa parcial ou total) de débitos com atualização automática do saldo devedor
-
-### Relatórios Gerenciais
-
-* Contas a pagar organizadas por período e data de vencimento
-* Relatório de contas vencidas em atraso
-* Balanço mensal de despesas no período
-
----
-
-## Tecnologias Utilizadas
-
-* Java (JDK 21.0)
-* IDE utilizada: Apache NetBeans 31
-* Git & GitHub (controle de versão e desenvolvimento colaborativo)
-
----
-
-## Como Executar o Projeto
-
-1. Abra o projeto em uma IDE Java (NetBeans, Eclipse ou IntelliJ)
-
-2. Execute a classe principal:
-
-```
-Principal.java
-```
-
----
-
-## Estrutura do Repositório
-
-```bash
-📁 src/
-└── Principal.java
-
-📄 .gitignore
-📄 LICENSE
-📄 README.md
-
-```
-
-## Conclusão
-
-O desenvolvimento do sistema de contas a pagar permitiu a aplicação prática dos conhecimentos adquiridos na disciplina de Algoritmos e Programação, proporcionando a criação de uma solução funcional para o gerenciamento de despesas e controle financeiro empresarial.
-
-Além dos conhecimentos técnicos, o trabalho contribuiu significativamente para o desenvolvimento de habilidades relacionadas ao trabalho em equipe, divisão de tarefas e utilização do GitHub para o versionamento e acompanhamento contínuo do projeto, ferramentas essenciais na prática profissional de tecnologia.
-
-Conclui-se que a atividade proporcionou uma experiência prática importante para reforçar os conteúdos estudados em sala de aula, aproximando os integrantes do grupo de situações reais encontradas no ambiente corporativo e no desenvolvimento de sistemas.
-
-
----
+* **Instituição:** UNISUL (Universidade do Sul de Santa Catarina)
+* **Disciplina:** Algoritmos e Programação
+* **Docente:** Prof. Osmar
