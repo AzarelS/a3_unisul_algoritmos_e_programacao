@@ -120,30 +120,9 @@ public class Principal {
                                         break;
                                     }
 
-                                    String vencimento = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                            + "--Inclusão de conta--\n\n"
-                                            + "Informe a data de vencimento\n"
-                                            + "(DD/MM/AAAA): ");
-                                    if (vencimento == null) {
+                                    String vencimento = lerDataValida();
+                                    if (vencimento == null){
                                         break;
-                                    }
-                                    vencimento.trim();
-                                    if (!vencimento.matches("\\d{2}/\\d{2}/\\d{4}")) {
-                                        JOptionPane.showMessageDialog(null, "\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                                + "--Inclusão de conta--\n\n"
-                                                + "Informe uma data válida no formato (DD/MM/AAAA).");
-                                        continue;
-                                    }
-
-                                    int dia = Integer.parseInt(vencimento.substring(0, 2));
-                                    int mes = Integer.parseInt(vencimento.substring(3, 5));
-                                    int ano = Integer.parseInt(vencimento.substring(6, 10));
-
-                                    if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2100) {
-                                        JOptionPane.showMessageDialog(null, "\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                                + "--Inclusão de conta--\n\n"
-                                                + "Data inválida verifique o dia mês e ano.");
-                                        continue;
                                     }
 
                                     String msgconfirma = String.format("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
@@ -474,4 +453,42 @@ public class Principal {
         }
         return valor;
     }
+
+    public static String lerDataValida() {
+        String vencimento = "";
+        boolean valido = false;
+
+        while (valido == false) {
+            vencimento = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                    + "--Inclusão de conta--\n\n"
+                    + "Informe a data de vencimento\n"
+                    + "(DD/MM/AAAA): ");
+            
+            if (vencimento == null) {
+                return null;
+            }
+            
+            vencimento = vencimento.trim();
+            if (!vencimento.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                JOptionPane.showMessageDialog(null, "\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                        + "--Inclusão de conta--\n\n"
+                        + "Informe uma data válida no formato (DD/MM/AAAA).");
+                continue;
+            }
+
+            int dia = Integer.parseInt(vencimento.substring(0, 2));
+            int mes = Integer.parseInt(vencimento.substring(3, 5));
+            int ano = Integer.parseInt(vencimento.substring(6, 10));
+
+            if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2100) {
+                JOptionPane.showMessageDialog(null, "\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                        + "--Inclusão de conta--\n\n"
+                        + "Data inválida verifique o dia mês e ano.");
+                continue;
+            }
+            valido = true;
+        }
+        return vencimento;
+    }
+
 }
