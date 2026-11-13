@@ -92,14 +92,7 @@ public class Principal {
                                     
                                     int documento = Integer.parseInt(entradadoc);
                                     
-                                    boolean docexiste = false;
-                                    for (int i = 0; i < total; i++) {
-                                        if (documentos[i] == documento) {
-                                            docexiste = true;
-                                            break;
-                                        }
-                                    }
-                                    if (docexiste == true) {
+                                    if (buscaDoc(documento) != -1) {
                                         JOptionPane.showMessageDialog(null, "Documento ja cadastrado, tente outro.");
                                         continue;
                                     }
@@ -452,5 +445,13 @@ public class Principal {
             // Fim de Repetição
         } while (menuprincipal != 0);
 
+    }
+    public static int buscaDoc(int pesquisaDoc) {
+        for(int i =  0; i < total; i++){
+            if (documentos[i] == pesquisaDoc){
+                return i;
+            }
+        }
+        return -1;
     }
 }
