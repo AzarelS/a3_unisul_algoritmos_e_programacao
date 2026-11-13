@@ -86,8 +86,13 @@ public class Principal {
                                             + "--Inclusão de conta--\n\n"
                                             + "Informe o número do Documento: ");
                                     if (entradadoc == null){
+                                        break;                                    
+                                    }
+                                    
+                                    entradadoc = entradadoc.trim();
+                                    if (!entradadoc.matches("\\d+")){
                                         JOptionPane.showMessageDialog(null, "Digite um número de documento válido.");
-                                        continue;                                    
+                                        continue;
                                     }
                                     
                                     int documento = Integer.parseInt(entradadoc);
@@ -101,21 +106,21 @@ public class Principal {
                                             + "--Inclusão de conta--\n\n"
                                             + "Adicione uma descrição a conta: ");
                                     if (desc == null){
-                                        continue;
+                                        break;
                                     }
 
                                     String beneficiario = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
                                             + "--Inclusão de conta--\n\n"
                                             + "Informe o beneficiário: ");
                                     if (beneficiario == null){
-                                        continue;
+                                        break;
                                     }
                                     
                                     String entradavalor = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
                                             + "--Inclusão de conta--\n\n"
                                             + "Informe o valor: ");
                                     if (entradavalor == null) {
-                                        continue;
+                                        break;
                                     }
                                     entradavalor = entradavalor.trim();
 
@@ -135,7 +140,7 @@ public class Principal {
                                             + "Informe a data de vencimento\n"
                                             + "(DD/MM/AAAA): ");
                                     if (vencimento == null) {
-                                        continue;
+                                        break;
                                     }
                                     vencimento.trim();
                                     if (!vencimento.matches("\\d{2}/\\d{2}/\\d{4}")) {
