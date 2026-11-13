@@ -335,11 +335,15 @@ public class Principal {
 
     }
 
+    /**
+     * Gerencia o fluxo completo de inclusão de novas contas a pagar (Tela
+     * 1.1.1), coordenando a leitura, validação, confirmação e armazenamento nos vetores.
+     */
     public static void incluirConta() {
         char novocad = 0;
         do {
             int documento = lerDoc();
-            if(documento == -1){
+            if (documento == -1) {
                 break;
             }
 
@@ -382,6 +386,13 @@ public class Principal {
         } while (novocad == 's' || novocad == 'S');
     }
 
+    /**
+     * Pesquisa um número de documento no vetor de documentos cadastrados.
+     *
+     * @param pesquisaDoc O número do documento que se deseja localizar.
+     * @return O índice (posição) do documento no vetor, ou -1 caso não seja
+     * encontrado.
+     */
     public static int buscaDoc(int pesquisaDoc) {
         for (int i = 0; i < total; i++) {
             if (documentos[i] == pesquisaDoc) {
@@ -391,6 +402,13 @@ public class Principal {
         return -1;
     }
 
+    /**
+     * Solicita ao usuário o número do documento via caixa de diálogo, validando
+     * se a entrada contém apenas números e se o documento ainda não existe.
+     *
+     * @return O número do documento validado, ou -1 caso o usuário cancele a
+     * operação.
+     */
     public static int lerDoc() {
         int documento = -1;
         boolean valido = false;
@@ -420,6 +438,13 @@ public class Principal {
         return documento;
     }
 
+    /**
+     * Solicita e valida o valor monetário da conta, garantindo que seja um
+     * número válido (aceitando ponto ou vírgula) e maior que zero.
+     *
+     * @return O valor da conta validado, ou -1 caso o usuário cancele a
+     * operação.
+     */
     public static double lerValorValido() {
         double valor = -1;
         boolean valido = false;
@@ -449,6 +474,13 @@ public class Principal {
         return valor;
     }
 
+    /**
+     * Solicita e valida a data de vencimento da conta no formato DD/MM/AAAA,
+     * verificando os limites válidos de dia, mês e ano.
+     *
+     * @return A data de vencimento formatada e validada, ou null caso o usuário
+     * cancele.
+     */
     public static String lerDataValida() {
         String vencimento = "";
         boolean valido = false;
@@ -486,6 +518,18 @@ public class Principal {
         return vencimento;
     }
 
+    /**
+     * Exibe um resumo com todos os dados preenchidos da conta e solicita a
+     * confirmação do usuário (S/N) antes de efetivar o cadastro.
+     *
+     * @param documento Número do documento da conta.
+     * @param desc Descrição da despesa.
+     * @param beneficiario Nome do beneficiário do pagamento.
+     * @param valor Valor da despesa.
+     * @param vencimento Data de vencimento no formato DD/MM/AAAA.
+     * @return true se o usuário confirmar com 'S', ou false caso recuse ou
+     * cancele.
+     */
     public static boolean confirmaInclusao(int documento, String desc, String beneficiario, double valor, String vencimento) {
         String msgconfirma = String.format("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
                 + "SISTEMA DE CONTAS A PAGAR\n"
@@ -506,6 +550,14 @@ public class Principal {
         return false;
     }
 
+    /**
+     *
+     * @param documento Número do documento da conta.
+     * @param desc Descrição da despesa.
+     * @param beneficiario Nome do beneficiário do pagamento.
+     * @param valor Valor da despesa.
+     * @param vencimento Data de vencimento no formato DD/MM/AAAA.
+     */
     public static void salvaConta(int documento, String desc, String beneficiario, double valor, String vencimento) {
         documentos[total] = documento;
         descs[total] = desc;
