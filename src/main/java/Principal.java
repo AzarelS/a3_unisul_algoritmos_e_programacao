@@ -121,35 +121,13 @@ public class Principal {
                                     }
 
                                     String vencimento = lerDataValida();
-                                    if (vencimento == null){
+                                    if (vencimento == null) {
                                         break;
                                     }
 
-                                    String msgconfirma = String.format("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                                            + "SISTEMA DE CONTAS A PAGAR\n"
-                                            + "INCLUSÃO DE CONTA\n"
-                                            + " DOCUMENTO : %d\n"
-                                            + " DESCRIÇÃO : %s\n"
-                                            + " BENEFICIÁRIO : %s\n"
-                                            + " VALOR : %.2f\n"
-                                            + " VENCIMENTO : %s\n\n"
-                                            + "CONFIRMA INCLUSÃO ( S/N ) ?", documento, desc, beneficiario, valor, vencimento);
-
-                                    String confirmaconta = JOptionPane.showInputDialog(msgconfirma);
-
-                                    char confirmainc = confirmaconta.charAt(0);
-
-                                    if (confirmainc == 'S' || confirmainc == 's') {
-                                        //Define os valores de entrada ja válidados em seus respectivos vetores.
-                                        documentos[total] = documento;
-                                        descs[total] = desc;
-                                        beneficiarios[total] = beneficiario;
-                                        valores[total] = valor;
-                                        vencimentos[total] = vencimento;
-                                        total++;
-
+                                    if (confirmaInclusao(documento, desc, beneficiario, valor, vencimento)) {
+                                        salvaConta(documento, desc, beneficiario, valor, vencimento);
                                         JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
-
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Inlclusão cancelada, os dados não foram salvos.");
                                     }
@@ -463,11 +441,11 @@ public class Principal {
                     + "--Inclusão de conta--\n\n"
                     + "Informe a data de vencimento\n"
                     + "(DD/MM/AAAA): ");
-            
+
             if (vencimento == null) {
                 return null;
             }
-            
+
             vencimento = vencimento.trim();
             if (!vencimento.matches("\\d{2}/\\d{2}/\\d{4}")) {
                 JOptionPane.showMessageDialog(null, "\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
@@ -491,4 +469,32 @@ public class Principal {
         return vencimento;
     }
 
+    public static boolean confirmaInclusao(int documento, String desc, String beneficiario, double valor, String vencimento) {
+        String msgconfirma = String.format("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                + "SISTEMA DE CONTAS A PAGAR\n"
+                + "INCLUSÃO DE CONTA\n"
+                + " DOCUMENTO : %d\n"
+                + " DESCRIÇÃO : %s\n"
+                + " BENEFICIÁRIO : %s\n"
+                + " VALOR : %.2f\n"
+                + " VENCIMENTO : %s\n\n"
+                + "CONFIRMA INCLUSÃO ( S/N ) ?", documento, desc, beneficiario, valor, vencimento);
+
+        String confirmaconta = JOptionPane.showInputDialog(msgconfirma);
+
+        if (confirmaconta != null && !confirmaconta.trim().isEmpty()) {
+            char confirmainc = Character.toUpperCase(confirmaconta.trim().charAt(0));
+            return confirmainc == 'S';
+        }
+        return false;
+    }
+
+    public static void salvaConta(int documento, String desc, String beneficiario, double valor, String vencimento) {
+        documentos[total] = documento;
+        descs[total] = desc;
+        beneficiarios[total] = beneficiario;
+        valores[total] = valor;
+        vencimentos[total] = vencimento;
+        total++;
+    }
 }
