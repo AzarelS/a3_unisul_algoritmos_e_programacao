@@ -79,66 +79,7 @@ public class Principal {
                         // Verificação da opção escolhida para o menu de Cadastro de Contas
                         switch (cadcontas) {
                             case 1: {
-                                char novocad = 0;
-                                do {
-                                    String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                            + "--Inclusão de conta--\n\n"
-                                            + "Informe o número do Documento: ");
-                                    if (entradadoc == null) {
-                                        break;
-                                    }
-
-                                    entradadoc = entradadoc.trim();
-                                    if (!entradadoc.matches("\\d+")) {
-                                        JOptionPane.showMessageDialog(null, "Digite um número de documento válido.");
-                                        continue;
-                                    }
-
-                                    int documento = Integer.parseInt(entradadoc);
-
-                                    if (buscaDoc(documento) != -1) {
-                                        JOptionPane.showMessageDialog(null, "Documento ja cadastrado, tente outro.");
-                                        continue;
-                                    }
-
-                                    String desc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                            + "--Inclusão de conta--\n\n"
-                                            + "Adicione uma descrição a conta: ");
-                                    if (desc == null) {
-                                        break;
-                                    }
-
-                                    String beneficiario = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                            + "--Inclusão de conta--\n\n"
-                                            + "Informe o beneficiário: ");
-                                    if (beneficiario == null) {
-                                        break;
-                                    }
-
-                                    double valor = lerValorValido();
-                                    if (valor == -1) {
-                                        break;
-                                    }
-
-                                    String vencimento = lerDataValida();
-                                    if (vencimento == null) {
-                                        break;
-                                    }
-
-                                    if (confirmaInclusao(documento, desc, beneficiario, valor, vencimento)) {
-                                        salvaConta(documento, desc, beneficiario, valor, vencimento);
-                                        JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "Inlclusão cancelada, os dados não foram salvos.");
-                                    }
-
-                                    String confirmanovocad = JOptionPane.showInputDialog("Deseja cadastrar outra conta: ( S/N ) ?");
-                                    if (confirmanovocad != null) {
-                                        novocad = confirmanovocad.charAt(0);
-                                    }
-
-                                } while (novocad == 's' || novocad == 'S');
-
+                                incluirConta();
                                 break;
                             }
                             case 2: {
@@ -394,6 +335,53 @@ public class Principal {
 
     }
 
+    public static void incluirConta() {
+        char novocad = 0;
+        do {
+            int documento = lerDoc();
+            if(documento == -1){
+                break;
+            }
+
+            String desc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                    + "--Inclusão de conta--\n\n"
+                    + "Adicione uma descrição a conta: ");
+            if (desc == null) {
+                break;
+            }
+
+            String beneficiario = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                    + "--Inclusão de conta--\n\n"
+                    + "Informe o beneficiário: ");
+            if (beneficiario == null) {
+                break;
+            }
+
+            double valor = lerValorValido();
+            if (valor == -1) {
+                break;
+            }
+
+            String vencimento = lerDataValida();
+            if (vencimento == null) {
+                break;
+            }
+
+            if (confirmaInclusao(documento, desc, beneficiario, valor, vencimento)) {
+                salvaConta(documento, desc, beneficiario, valor, vencimento);
+                JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Inclusão cancelada, os dados não foram salvos.");
+            }
+
+            String confirmanovocad = JOptionPane.showInputDialog("Deseja cadastrar outra conta: ( S/N ) ?");
+            if (confirmanovocad != null && !confirmanovocad.trim().isEmpty()) {
+                novocad = confirmanovocad.charAt(0);
+            }
+
+        } while (novocad == 's' || novocad == 'S');
+    }
+
     public static int buscaDoc(int pesquisaDoc) {
         for (int i = 0; i < total; i++) {
             if (documentos[i] == pesquisaDoc) {
@@ -401,6 +389,35 @@ public class Principal {
             }
         }
         return -1;
+    }
+
+    public static int lerDoc() {
+        int documento = -1;
+        boolean valido = false;
+
+        while (valido == false) {
+            String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                    + "--Inclusão de conta--\n\n"
+                    + "Informe o número do Documento: ");
+            if (entradadoc == null) {
+                return -1;
+            }
+
+            entradadoc = entradadoc.trim();
+            if (!entradadoc.matches("\\d+")) {
+                JOptionPane.showMessageDialog(null, "Digite um número de documento válido.");
+                continue;
+            }
+
+            documento = Integer.parseInt(entradadoc);
+
+            if (buscaDoc(documento) != -1) {
+                JOptionPane.showMessageDialog(null, "Documento ja cadastrado, tente outro.");
+                continue;
+            }
+            valido = true;
+        }
+        return documento;
     }
 
     public static double lerValorValido() {
