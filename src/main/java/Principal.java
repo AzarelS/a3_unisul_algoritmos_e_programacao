@@ -23,11 +23,31 @@ public class Principal {
 
     //Controla e registra o número de contas cadastradas
     static int total = 0;
+    
+    static int menuprincipal, cadcontas;
+    
+    public static int menuPrincipal() {
+    // Menu Principal
+        menuprincipal = -1;
+    
+        menuprincipal = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                + "Sistema de Contas a Pagar\n"
+                + "\n"
+                + "Menu Principal\n"
+                + "\n"
+                + "1 - Cadastro de Contas\n"
+                + "2 - Baixa de Conta\n"
+                + "3 - Relatótios\n"
+                + "0 - Sair de Programa\n"
+                + "\n"
+                + "Digite a opção desejada: \n"));
+        return (menuprincipal);
+}
 
     public static void main(String[] args) {
 
         // Variaveis:
-        int menuprincipal, cadcontas, inccontas, altcontas, concontas, excontas, baicontas, relatorios;
+        int cadcontas, inccontas, altcontas, concontas, excontas, baicontas, relatorios;
         char resposta;
         // resposta = variavel tipo char para responder S/N
         // cadcontas: cadastro de  contas
@@ -38,22 +58,10 @@ public class Principal {
         // baicontas: baixa de conta
 
         //Controla e registra o número de contas cadastradas
-        menuprincipal = -1;
 
         do {
 
-            // Menu Principal
-            menuprincipal = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                    + "Sistema de Contas a Pagar\n"
-                    + "\n"
-                    + "Menu Principal\n"
-                    + "\n"
-                    + "1 - Cadastro de Contas\n"
-                    + "2 - Baixa de Conta\n"
-                    + "3 - Relatótios\n"
-                    + "0 - Sair de Programa\n"
-                    + "\n"
-                    + "Digite a opção desejada: \n"));
+            menuPrincipal();
 
             // Verificação da opção escolhida
             switch (menuprincipal) {
@@ -235,7 +243,6 @@ public class Principal {
                             }
 
                             case 0: {
-                                cadcontas = 0;
                                 JOptionPane.showMessageDialog(null, "Voltando");
                                 break;
                             }
