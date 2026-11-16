@@ -1,3 +1,4 @@
+
 import javax.swing.JOptionPane;
 
 public class Principal {
@@ -23,32 +24,14 @@ public class Principal {
 
     //Controla e registra o número de contas cadastradas
     static int total = 0;
-    
+
     //Variaveis responsaveis pela escolha de opçoes nos menus
     static int menuprincipal, cadcontas;
-    
-    public static int menuPrincipal() {
-    // Menu Principal
-        menuprincipal = -1;
-    
-        menuprincipal = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                + "Sistema de Contas a Pagar\n"
-                + "\n"
-                + "Menu Principal\n"
-                + "\n"
-                + "1 - Cadastro de Contas\n"
-                + "2 - Baixa de Conta\n"
-                + "3 - Relatótios\n"
-                + "0 - Sair de Programa\n"
-                + "\n"
-                + "Digite a opção desejada: \n"));
-        return (menuprincipal);
-}
 
     public static void main(String[] args) {
 
         // Variaveis:
-        int inccontas, baicontas, relatorios;
+        int  baicontas, relatorios;
         char resposta;
         // resposta = variavel tipo char para responder S/N
         // cadcontas: cadastro de  contas
@@ -59,7 +42,6 @@ public class Principal {
         // baicontas: baixa de conta
 
         //Controla e registra o número de contas cadastradas
-
         do {
 
             menuPrincipal();
@@ -334,10 +316,9 @@ public class Principal {
                     JOptionPane.showMessageDialog(null, "Opção Inexistente");
                     break;
                 }
-                
 
             }
-
+            break;
             // Fim de Repetição
         } while (menuprincipal != 0);
 
@@ -345,7 +326,8 @@ public class Principal {
 
     /**
      * Gerencia o fluxo completo de inclusão de novas contas a pagar (Tela
-     * 1.1.1), coordenando a leitura, validação, confirmação e armazenamento nos vetores.
+     * 1.1.1), coordenando a leitura, validação, confirmação e armazenamento nos
+     * vetores.
      */
     public static void incluirConta() {
         char novocad = 0;
@@ -573,5 +555,23 @@ public class Principal {
         valores[total] = valor;
         vencimentos[total] = vencimento;
         total++;
+    }
+    
+    public static int menuPrincipal() {
+        // Menu Principal
+        menuprincipal = -1;
+
+        menuprincipal = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                + "Sistema de Contas a Pagar\n"
+                + "\n"
+                + "Menu Principal\n"
+                + "\n"
+                + "1 - Cadastro de Contas\n"
+                + "2 - Baixa de Conta\n"
+                + "3 - Relatótios\n"
+                + "0 - Sair de Programa\n"
+                + "\n"
+                + "Digite a opção desejada: \n"));
+        return (menuprincipal);
     }
 }
