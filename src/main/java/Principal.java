@@ -24,6 +24,7 @@ public class Principal {
     //Controla e registra o número de contas cadastradas
     static int total = 0;
     
+    //Variaveis responsaveis pela escolha de opçoes nos menus
     static int menuprincipal, cadcontas;
     
     public static int menuPrincipal() {
@@ -47,7 +48,7 @@ public class Principal {
     public static void main(String[] args) {
 
         // Variaveis:
-        int cadcontas, inccontas, altcontas, concontas, excontas, baicontas, relatorios;
+        int inccontas, baicontas, relatorios;
         char resposta;
         // resposta = variavel tipo char para responder S/N
         // cadcontas: cadastro de  contas
@@ -333,6 +334,7 @@ public class Principal {
                     JOptionPane.showMessageDialog(null, "Opção Inexistente");
                     break;
                 }
+                
 
             }
 
