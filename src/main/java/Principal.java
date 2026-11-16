@@ -31,7 +31,7 @@ public class Principal {
     public static void main(String[] args) {
 
         // Variaveis:
-        int  baicontas, relatorios;
+        int baicontas, relatorios;
         char resposta;
         // resposta = variavel tipo char para responder S/N
         // cadcontas: cadastro de  contas
@@ -50,21 +50,8 @@ public class Principal {
             switch (menuprincipal) {
                 case 1: {
                     do {
-                        // Menu de Cadastro de Contas
-                        cadcontas = -1;
 
-                        cadcontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                + "Sistema de Contas a Pagar\n"
-                                + "\n"
-                                + "Cadastro de Contas\n"
-                                + "\n"
-                                + "1 - Inclusão\n"
-                                + "2 - Alteração\n"
-                                + "3 - Consulta\n"
-                                + "4 - Exclusão\n"
-                                + "0 - Retornar\n"
-                                + "\n"
-                                + "Digite a opção desejada: \n"));
+                        menuCadContas();
 
                         // Verificação da opção escolhida para o menu de Cadastro de Contas
                         switch (cadcontas) {
@@ -302,9 +289,9 @@ public class Principal {
                             }
                         }
                     } while (relatorios != 0);
-
+                    break;
                 }
-                break;
+                
 
                 // Outras Opções
                 case 0: {
@@ -316,7 +303,6 @@ public class Principal {
                     JOptionPane.showMessageDialog(null, "Opção Inexistente");
                     break;
                 }
-
             }
             break;
             // Fim de Repetição
@@ -556,7 +542,7 @@ public class Principal {
         vencimentos[total] = vencimento;
         total++;
     }
-    
+
     public static int menuPrincipal() {
         // Menu Principal
         menuprincipal = -1;
@@ -573,5 +559,25 @@ public class Principal {
                 + "\n"
                 + "Digite a opção desejada: \n"));
         return (menuprincipal);
+    }
+
+    public static int menuCadContas() {
+        // Menu de Cadastro de Contas
+        cadcontas = -1;
+
+        cadcontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                + "Sistema de Contas a Pagar\n"
+                + "\n"
+                + "Cadastro de Contas\n"
+                + "\n"
+                + "1 - Inclusão\n"
+                + "2 - Alteração\n"
+                + "3 - Consulta\n"
+                + "4 - Exclusão\n"
+                + "0 - Retornar\n"
+                + "\n"
+                + "Digite a opção desejada: \n"));
+
+        return (cadcontas);
     }
 }
