@@ -304,7 +304,6 @@ public class Principal {
                     break;
                 }
             }
-            break;
             // Fim de Repetição
         } while (menuprincipal != 0);
 
