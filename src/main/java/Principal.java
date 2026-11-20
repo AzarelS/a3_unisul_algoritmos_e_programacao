@@ -542,6 +542,37 @@ public class Principal {
         total++;
     }
 
+    public static int lerDocConsulta() {
+        while (true) {
+            String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "SISTEMA DE CONTAS A PAGAR\n\n"
+                    + "CONSULTA DE CONTA\n\n"
+                    + "Informe o número do documento para consulta:");
+
+            if (entradadoc == null) {
+                return -1;
+            }
+
+            entradadoc = entradadoc.trim();
+
+            boolean ehNumero = !entradadoc.isEmpty();
+
+            for (int i = 0; i < entradadoc.length(); i++) {
+                if (!Character.isDigit(entradadoc.charAt(i))) {
+                    ehNumero = false;
+                    break;
+                }
+            }
+
+            if (!ehNumero) {
+                JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
+                continue;
+            }
+
+            return Integer.parseInt(entradadoc);
+        }
+    }
+    
     public static int menuPrincipal() {
         // Menu Principal
         menuprincipal = -1;
