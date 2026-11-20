@@ -63,73 +63,9 @@ public class Principal {
                                 break;
                             }
                             case 3: {
-                                // CONSULTA DE CONTA
-                                char novaconsulta = 'N';
-                                do {
-                                    String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                                            + "SISTEMA DE CONTAS A PAGAR\n\n"
-                                            + "CONSULTA DE CONTA\n\n"
-                                            + "Informe o número do documento para consulta:");
-
-                                    if (entradadoc == null) {
-                                        break;
-                                    }
-
-                                    entradadoc = entradadoc.trim();
-
-                                    boolean ehNumero = !entradadoc.isEmpty();
-
-                                    for (int i = 0; i < entradadoc.length(); i++) {
-                                        if (!Character.isDigit(entradadoc.charAt(i))) {
-                                            ehNumero = false;
-                                            break;
-                                        }
-                                    }
-
-                                    if (!ehNumero) {
-                                        JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
-                                        novaconsulta = 'S';
-                                        continue;
-                                    }
-
-                                    int docConsulta = Integer.parseInt(entradadoc);
-
-                                    int indiceEncontrado = -1;
-
-                                    for (int i = 0; i < total; i++) {
-                                        if (documentos[i] == docConsulta) {
-                                            indiceEncontrado = i;
-                                            break;
-                                        }
-                                    }
-
-                                    if (indiceEncontrado != -1) {
-                                        String msg = ("\t\t XYZ COMERCIO DE PRODUTOS LTDA.\n")
-                                                + "\tSISTEMA DE CONTAS A PAGAR\n\n"
-                                                + "\tCONSULTA DE CONTA\n\n"
-                                                + "Documento: " + documentos[indiceEncontrado] + "\n"
-                                                + "Descrição: " + descs[indiceEncontrado] + "\n"
-                                                + "Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
-                                                + "Valor: R$ " + valores[indiceEncontrado] + "\n"
-                                                + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
-                                        JOptionPane.showMessageDialog(null, msg);
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "Documento não encontrado");
-                                    }
-
-                                    String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)?");
-
-                                    if (resp != null && !resp.trim().isEmpty()) {
-                                        novaconsulta = Character.toUpperCase(resp.trim().charAt(0));
-                                    } else {
-                                        novaconsulta = 'N';
-                                    }
-
-                                } while (novaconsulta == 'S');
-
+                                consultarConta();
                                 break;
                             }
-
                             case 4: {
                                 char NovaExc = 'N';
                                 do {
@@ -542,6 +478,33 @@ public class Principal {
         total++;
     }
 
+    public static void consultarConta() {
+        char novaconsulta = 'N';
+        do {
+            int docConsulta = lerDocConsulta();
+            if (docConsulta == -1) {
+                break;
+            }
+
+            int indiceEncontrado = buscaDoc(docConsulta);
+
+            if (indiceEncontrado != -1) {
+                exibirConta(indiceEncontrado);
+            } else {
+                JOptionPane.showMessageDialog(null, "Documento não encontrado");
+            }
+
+            String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)?");
+
+            if (resp != null && !resp.trim().isEmpty()) {
+                novaconsulta = Character.toUpperCase(resp.trim().charAt(0));
+            } else {
+                novaconsulta = 'N';
+            }
+
+        } while (novaconsulta == 'S');
+    }
+    
     public static int lerDocConsulta() {
         while (true) {
             String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
