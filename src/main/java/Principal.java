@@ -87,25 +87,74 @@ public class Principal {
 
                 case 2: {
                     // Menu de Baixa de Contas
-                    baicontas = -1;
+                    char NovaBaixa ='N';
                     do {
-                        baicontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                + "Sistema de Contas a Pagar\n"
+                        String baixacontas = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
+                                + "SISTEMA DE CONTAS A PAGAR\n"
                                 + "\n"
-                                + "Movimentação - Baixa de Conta\n"
-                                + "\n"
-                                + "Documento :\n"
-                                + "Valor atual :\n"
-                                + "\n"
-                                + "Valor pago :\n"
-                                + "\n"
-                                + "Valor final :\n"
-                                + "\n"
-                                + "Confirmar baixa (S/N)? __\n"
-                                + "\n"
-                                + "Nova baixa (S/N)? __\n"));
-
-                    } while (baicontas != 0);
+                                + "MOVIMENTAÇÃO - BAIXA DE CONTA\n"
+                                +"INFORME O NUMERO DO C DOCUMENTO A SER MOVIMENTADA");
+                        if (baixacontas == null){
+                            break;
+                        }
+                        baixacontas = baixacontas.trim();
+                        boolean ehNumero = !baixacontas.isEmpty();
+                        for(int i = 0; i < baixacontas.length();i++){
+                            if (!Character.isDigit(baixacontas.charAt(i))){
+                                ehNumero = false;
+                                break;
+                            }
+                        }
+                        if (!ehNumero){
+                            JOptionPane.showMessageDialog(null,"Por favor, digite um número de documento válido.");
+                            NovaBaixa = 'S';
+                            continue;
+                        }
+                        
+                        int contabaixa = Integer.parseInt(baixacontas);
+                        int indiceencontrado= -1;
+                        for (int i=0; i < total; i++){
+                            if (documentos[i] == contabaixa){
+                                indiceencontrado=i;
+                                break;
+                            }
+                        }
+                        double valorfinal = 0;
+                       if(indiceencontrado != -1 ){
+                           String msg = ("\t\t XYZ COMERCIO DE PROFUTOS LTDA.\n")
+                                   + "\tSISTEMA DE CONTAS A PAGAR\n\n"
+                                   +"\tMOVIMENTAÇÃO - BAIXA DE CONTA\n\n"
+                                   +"Documento: " + documentos[indiceencontrado]+"\n"
+                                   +"Descrição" + descs[indiceencontrado] + "\n"
+                                   +"Beneficiário: " + beneficiarios[indiceencontrado]+"\n"
+                                   +"valor: R$ " + valores[indiceencontrado] + "\n"
+                                   ;
+                           double valordiminuir = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a diminuir"));
+                           JOptionPane.showMessageDialog(null, msg);
+                           char MovimentacaoConta = JOptionPane.showInputDialog(null,"CERTEZA EM BAIXAR CONTA S/N:").charAt(0);
+                           if (MovimentacaoConta == 'S'|| MovimentacaoConta == 's'){
+                               for (int i = indiceencontrado; i < total;i++){
+                               valorfinal = valores[indiceencontrado] - valordiminuir;
+                               valores[indiceencontrado] = valorfinal;
+                               JOptionPane.showMessageDialog(null,"CONTA BAIXADA COM SUCESSO!");
+                               }
+                           }else{
+                               if (MovimentacaoConta == 'N'|| MovimentacaoConta == 'n'){
+                               JOptionPane.showMessageDialog(null, "BAIXA DE CONTA CANCELADA");
+                               }else{
+                               JOptionPane.showMessageDialog(null, "OPÇÃO INVALIDA");
+                               }
+                           }
+                           }else{
+                               JOptionPane.showMessageDialog(null, "DOCUMENTO NÃO ENCONTRADO");
+                       }
+                       String resp = JOptionPane.showInputDialog("DESEJA FAZER UMA OUTRA BAIXA (S/N)?");
+                       if (resp != null && !resp.trim().isEmpty()){
+                           NovaBaixa = Character.toUpperCase(resp.trim().charAt(0));
+                       }else{
+                           NovaBaixa = 'N';
+                       }
+                    } while (NovaBaixa == 'S');
 
                     break;
                 }
