@@ -478,6 +478,11 @@ public class Principal {
         total++;
     }
 
+    /**
+     * Gerencia o fluxo completo de consulta de contas a pagar, coordenando a 
+     * leitura do documento, busca nos vetores e exibição dos dados.
+     */
+    
     public static void consultarConta() {
         char novaconsulta = 'N';
         do {
@@ -504,6 +509,14 @@ public class Principal {
 
         } while (novaconsulta == 'S');
     }
+    
+    /**
+     * Solicita ao usuário o número do documento para consulta via caixa de
+     * diálogo, validando se a entrada contém apenas dígitos numéricos.
+     *
+     * @return O número do documento validado, ou -1 caso o usuário cancele a
+     * operação.
+     */
     
     public static int lerDocConsulta() {
         while (true) {
@@ -535,6 +548,13 @@ public class Principal {
             return Integer.parseInt(entradadoc);
         }
     }
+    
+    /**
+     * Exibe uma caixa de diálogo com os dados completos de uma conta cadastrada
+     * a partir de sua posição nos vetores.
+     *
+     * @param indiceEncontrado A posição (índice) da conta nos vetores.
+     */
     
     public static void exibirConta(int indiceEncontrado) {
         String msg = ("\t\t XYZ COMERCIO DE PRODUTOS LTDA.\n")
