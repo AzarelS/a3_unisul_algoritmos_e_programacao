@@ -573,6 +573,18 @@ public class Principal {
         }
     }
     
+    public static void exibirConta(int indiceEncontrado) {
+        String msg = ("\t\t XYZ COMERCIO DE PRODUTOS LTDA.\n")
+                + "\tSISTEMA DE CONTAS A PAGAR\n\n"
+                + "\tCONSULTA DE CONTA\n\n"
+                + "Documento: " + documentos[indiceEncontrado] + "\n"
+                + "Descrição: " + descs[indiceEncontrado] + "\n"
+                + "Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
+                + "Valor: R$ " + valores[indiceEncontrado] + "\n"
+                + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
+        JOptionPane.showMessageDialog(null, msg);
+    }
+    
     public static int menuPrincipal() {
         // Menu Principal
         menuprincipal = -1;
