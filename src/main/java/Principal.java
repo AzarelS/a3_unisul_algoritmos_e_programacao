@@ -60,6 +60,7 @@ public class Principal {
                                 break;
                             }
                             case 2: {
+                                alterarConta();
                                 break;
                             }
                             case 3: {
@@ -130,7 +131,6 @@ public class Principal {
                     } while (relatorios != 0);
                     break;
                 }
-                
 
                 // Outras Opções
                 case 0: {
@@ -382,10 +382,9 @@ public class Principal {
     }
 
     /**
-     * Gerencia o fluxo completo de consulta de contas a pagar, coordenando a 
+     * Gerencia o fluxo completo de consulta de contas a pagar, coordenando a
      * leitura do documento, busca nos vetores e exibição dos dados.
      */
-    
     public static void consultarConta() {
         char novaconsulta = 'N';
         do {
@@ -412,7 +411,7 @@ public class Principal {
 
         } while (novaconsulta == 'S');
     }
-    
+
     /**
      * Solicita ao usuário o número do documento para consulta via caixa de
      * diálogo, validando se a entrada contém apenas dígitos numéricos.
@@ -420,7 +419,6 @@ public class Principal {
      * @return O número do documento validado, ou -1 caso o usuário cancele a
      * operação.
      */
-    
     public static int lerDocConsulta() {
         while (true) {
             String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
@@ -451,7 +449,7 @@ public class Principal {
             return Integer.parseInt(entradadoc);
         }
     }
-    
+
     /**
      * Solicita ao usuário o número do documento para excluir a conta via caixa
      * de diálogo, validando se a entrada contém apenas dígitos numéricos.
@@ -459,24 +457,24 @@ public class Principal {
      * @return O número do documento validado, ou 'N' caso o usuário cancele a
      * operação.
      */
-    public static void ExcConta(){
+    public static void ExcConta() {
         char NovaExc = 'N';
         do {
             String ContaExc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                + "SISTEMA DE CONTAS A PAGAR\n"
-                + "EXCLUIR CONTA\n"
-                + "INFORME O NUMERO DO DOCUMENTO A SER EXCLUIDA: ");
+                    + "SISTEMA DE CONTAS A PAGAR\n"
+                    + "EXCLUIR CONTA\n"
+                    + "INFORME O NUMERO DO DOCUMENTO A SER EXCLUIDA: ");
             if (ContaExc == null) {
-            break;
+                break;
             }
             ContaExc = ContaExc.trim();
 
             boolean ehNumero = !ContaExc.isEmpty();
 
             for (int i = 0; i < ContaExc.length(); i++) {
-            if (!Character.isDigit(ContaExc.charAt(i))) {
-                ehNumero = false;
-                break;
+                if (!Character.isDigit(ContaExc.charAt(i))) {
+                    ehNumero = false;
+                    break;
                 }
             }
 
@@ -491,55 +489,55 @@ public class Principal {
             int indiceEncontrado = -1;
 
             for (int i = 0; i < total; i++) {
-            if (documentos[i] == docExc) {
-                indiceEncontrado = i;
-                break;
+                if (documentos[i] == docExc) {
+                    indiceEncontrado = i;
+                    break;
                 }
             }
 
             if (indiceEncontrado != -1) {
                 String msg = ("\t\t XYZ COMERCIO DE PRODUTOS LTDA.\n")
-                + "\tSISTEMA DE CONTAS A PAGAR\n\n"
-                + "\tEXCLUSÃO DE CONTA\n\n"
-                + "Documento: " + documentos[indiceEncontrado] + "\n"
-                + "Descrição: " + descs[indiceEncontrado] + "\n"
-                + "Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
-                + "Valor: R$ " + valores[indiceEncontrado] + "\n"
-                + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
+                        + "\tSISTEMA DE CONTAS A PAGAR\n\n"
+                        + "\tEXCLUSÃO DE CONTA\n\n"
+                        + "Documento: " + documentos[indiceEncontrado] + "\n"
+                        + "Descrição: " + descs[indiceEncontrado] + "\n"
+                        + "Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
+                        + "Valor: R$ " + valores[indiceEncontrado] + "\n"
+                        + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
                 JOptionPane.showMessageDialog(null, msg);
                 char DelConta = JOptionPane.showInputDialog(null, "CERTEZA EM EXCLUIR CONTA S/N: ").charAt(0);
                 if (DelConta == 'S' || DelConta == 's') {
                     for (int i = indiceEncontrado; i < total - 1; i++) {
-                    documentos[i] = documentos[i + 1];
-                    descs[i] = descs[i + 1];
-                    beneficiarios[i] = beneficiarios[i + 1];
-                    valores[i] = valores[i + 1];
-                    vencimentos[i] = vencimentos[i + 1];
+                        documentos[i] = documentos[i + 1];
+                        descs[i] = descs[i + 1];
+                        beneficiarios[i] = beneficiarios[i + 1];
+                        valores[i] = valores[i + 1];
+                        vencimentos[i] = vencimentos[i + 1];
                     }
-                total--;
-               JOptionPane.showMessageDialog(null, "CONTA EXCLUÍDA COM SUCESSO!");
+                    total--;
+                    JOptionPane.showMessageDialog(null, "CONTA EXCLUÍDA COM SUCESSO!");
                 } else {
                     if (DelConta == 'N' || DelConta == 'n') {
-                       JOptionPane.showMessageDialog(null, "EXCLUÇÃO CANCELADA");
-                   } else {
-                        JOptionPane.showMessageDialog(null, "Opção invalida");
-                        }
-                    }
+                        JOptionPane.showMessageDialog(null, "EXCLUÇÃO CANCELADA");
                     } else {
-                    JOptionPane.showMessageDialog(null, "Documento não encontrado");
+                        JOptionPane.showMessageDialog(null, "Opção invalida");
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Documento não encontrado");
+            }
 
-                String resp = JOptionPane.showInputDialog("Deseja fazer uma outra Exclução? (S/N)?");
+            String resp = JOptionPane.showInputDialog("Deseja fazer uma outra Exclução? (S/N)?");
 
-                if (resp != null && !resp.trim().isEmpty()) {
-                    NovaExc = Character.toUpperCase(resp.trim().charAt(0));
-                } else {
+            if (resp != null && !resp.trim().isEmpty()) {
+                NovaExc = Character.toUpperCase(resp.trim().charAt(0));
+            } else {
                 NovaExc = 'N';
             }
 
         } while (NovaExc == 'S');
     }
-    
+
     /**
      * Solicita ao usuário o número do documento para Baixar a conta via caixa
      * de diálogo, validando se a entrada contém apenas dígitos numéricos.
@@ -547,86 +545,84 @@ public class Principal {
      * @return O número do documento validado, ou 'N' caso o usuário cancele a
      * operação.
      */
-    public static void baixaconta(){
-        char NovaBaixa ='N';
+    public static void baixaconta() {
+        char NovaBaixa = 'N';
         do {
             String baixacontas = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-            + "SISTEMA DE CONTAS A PAGAR\n"
-            + "\n"
-            + "MOVIMENTAÇÃO - BAIXA DE CONTA\n"
-            +"INFORME O NUMERO DO C DOCUMENTO A SER MOVIMENTADA");
-            if (baixacontas == null){
+                    + "SISTEMA DE CONTAS A PAGAR\n"
+                    + "\n"
+                    + "MOVIMENTAÇÃO - BAIXA DE CONTA\n"
+                    + "INFORME O NUMERO DO C DOCUMENTO A SER MOVIMENTADA");
+            if (baixacontas == null) {
                 break;
             }
             baixacontas = baixacontas.trim();
             boolean ehNumero = !baixacontas.isEmpty();
-            
-            for(int i = 0; i < baixacontas.length();i++){
-                if (!Character.isDigit(baixacontas.charAt(i))){
+
+            for (int i = 0; i < baixacontas.length(); i++) {
+                if (!Character.isDigit(baixacontas.charAt(i))) {
                     ehNumero = false;
                     break;
-                    }
                 }
-            if (!ehNumero){
-                JOptionPane.showMessageDialog(null,"Por favor, digite um número de documento válido.");
+            }
+            if (!ehNumero) {
+                JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
                 NovaBaixa = 'S';
                 continue;
-                }
-                        
+            }
+
             int contabaixa = Integer.parseInt(baixacontas);
-            int indiceencontrado= -1;
-            for (int i=0; i < total; i++){
-                if (documentos[i] == contabaixa){
-                    indiceencontrado=i;
+            int indiceencontrado = -1;
+            for (int i = 0; i < total; i++) {
+                if (documentos[i] == contabaixa) {
+                    indiceencontrado = i;
                     break;
-                    }
                 }
+            }
             double valorfinal = 0;
-                if(indiceencontrado != -1 ){
-                    String msg = ("\t\t XYZ COMERCIO DE PROFUTOS LTDA.\n")
+            if (indiceencontrado != -1) {
+                String msg = ("\t\t XYZ COMERCIO DE PROFUTOS LTDA.\n")
                         + "\tSISTEMA DE CONTAS A PAGAR\n\n"
-                        +"\tMOVIMENTAÇÃO - BAIXA DE CONTA\n\n"
-                        +"Documento: " + documentos[indiceencontrado]+"\n"
-                        +"Descrição" + descs[indiceencontrado] + "\n"
-                        +"Beneficiário: " + beneficiarios[indiceencontrado]+"\n"
-                        +"valor: R$ " + valores[indiceencontrado] + "\n"
-                        ;
-                    
-                    double valordiminuir = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a diminuir"));
-                    JOptionPane.showMessageDialog(null, msg);
-                    char MovimentacaoConta = JOptionPane.showInputDialog(null,"CERTEZA EM BAIXAR CONTA S/N:").charAt(0);
-                    if (MovimentacaoConta == 'S'|| MovimentacaoConta == 's'){
-                        for (int i = indiceencontrado; i < total;i++){
-                            valorfinal = valores[indiceencontrado] - valordiminuir;
-                            valores[indiceencontrado] = valorfinal;
-                            JOptionPane.showMessageDialog(null,"CONTA BAIXADA COM SUCESSO!");
-                        }
-                    }else{
-                        if (MovimentacaoConta == 'N'|| MovimentacaoConta == 'n'){
-                            JOptionPane.showMessageDialog(null, "BAIXA DE CONTA CANCELADA");
-                        }else{
-                            JOptionPane.showMessageDialog(null, "OPÇÃO INVALIDA");
-                        }
+                        + "\tMOVIMENTAÇÃO - BAIXA DE CONTA\n\n"
+                        + "Documento: " + documentos[indiceencontrado] + "\n"
+                        + "Descrição" + descs[indiceencontrado] + "\n"
+                        + "Beneficiário: " + beneficiarios[indiceencontrado] + "\n"
+                        + "valor: R$ " + valores[indiceencontrado] + "\n";
+
+                double valordiminuir = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a diminuir"));
+                JOptionPane.showMessageDialog(null, msg);
+                char MovimentacaoConta = JOptionPane.showInputDialog(null, "CERTEZA EM BAIXAR CONTA S/N:").charAt(0);
+                if (MovimentacaoConta == 'S' || MovimentacaoConta == 's') {
+                    for (int i = indiceencontrado; i < total; i++) {
+                        valorfinal = valores[indiceencontrado] - valordiminuir;
+                        valores[indiceencontrado] = valorfinal;
+                        JOptionPane.showMessageDialog(null, "CONTA BAIXADA COM SUCESSO!");
                     }
-                }else{
-                    JOptionPane.showMessageDialog(null, "DOCUMENTO NÃO ENCONTRADO");
+                } else {
+                    if (MovimentacaoConta == 'N' || MovimentacaoConta == 'n') {
+                        JOptionPane.showMessageDialog(null, "BAIXA DE CONTA CANCELADA");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "OPÇÃO INVALIDA");
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "DOCUMENTO NÃO ENCONTRADO");
+            }
             String resp = JOptionPane.showInputDialog("DESEJA FAZER UMA OUTRA BAIXA (S/N)?");
-            if (resp != null && !resp.trim().isEmpty()){
-            NovaBaixa = Character.toUpperCase(resp.trim().charAt(0));
-            }else{
+            if (resp != null && !resp.trim().isEmpty()) {
+                NovaBaixa = Character.toUpperCase(resp.trim().charAt(0));
+            } else {
                 NovaBaixa = 'N';
             }
         } while (NovaBaixa == 'S');
     }
-    
+
     /**
      * Exibe uma caixa de diálogo com os dados completos de uma conta cadastrada
      * a partir de sua posição nos vetores.
      *
      * @param indiceEncontrado A posição (índice) da conta nos vetores.
      */
-    
     public static void exibirConta(int indiceEncontrado) {
         String msg = ("\t\t XYZ COMERCIO DE PRODUTOS LTDA.\n")
                 + "\tSISTEMA DE CONTAS A PAGAR\n\n"
@@ -638,7 +634,7 @@ public class Principal {
                 + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
         JOptionPane.showMessageDialog(null, msg);
     }
-    
+
     public static int menuPrincipal() {
         // Menu Principal
         menuprincipal = -1;
@@ -675,5 +671,130 @@ public class Principal {
                 + "Digite a opção desejada: \n"));
 
         return (cadcontas);
+    }
+
+    public static void alterarConta() {
+        char novaAlteracao = 'N';
+
+        do {
+            String entradaDoc = JOptionPane.showInputDialog(
+                    "\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "SISTEMA DE CONTAS A PAGAR\n\n"
+                    + "ALTERAÇÃO DE CONTA\n\n"
+                    + "Informe o número do documento da conta:");
+
+            if (entradaDoc == null) {
+                break;
+            }
+
+            entradaDoc = entradaDoc.trim();
+
+            // Validação do documento
+            boolean nvalido = true;
+
+            for (int i = 0; i < entradaDoc.length(); i++) {
+                if (Character.isDigit(entradaDoc.charAt(i)) == false) {
+                    nvalido = false;
+                    break;
+                }
+            }
+
+            if (nvalido == false) {
+                JOptionPane.showMessageDialog(null,
+                        "Digite um número de documento válido.");
+                continue;
+            }
+
+            int documento = Integer.parseInt(entradaDoc);
+
+            // Busca da conta cadastrada
+            int indice = buscaDoc(documento);
+
+            if (indice == -1) {
+                JOptionPane.showMessageDialog(null,
+                        "Documento não encontrado.");
+            } else {
+
+                // Exibe os dados atuais da conta
+                exibirConta(indice);
+
+                // Solicita os novos dados
+                String novaDesc = JOptionPane.showInputDialog(
+                        "Informe a nova descrição:",
+                        descs[indice]);
+
+                if (novaDesc == null) {
+                    break;
+                }
+
+                String novoBeneficiario = JOptionPane.showInputDialog(
+                        "Informe o novo beneficiário:",
+                        beneficiarios[indice]);
+
+                if (novoBeneficiario == null) {
+                    break;
+                }
+
+                double novoValor = lerValorValido();
+
+                if (novoValor == -1) {
+                    break;
+                }
+
+                String novoVencimento = lerDataValida();
+
+                if (novoVencimento == null) {
+                    break;
+                }
+
+                // Exibe os novos dados para confirmação
+                String mensagem = String.format(
+                        "\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                        + "SISTEMA DE CONTAS A PAGAR\n"
+                        + "ALTERAÇÃO DE CONTA\n\n"
+                        + "DOCUMENTO: %d\n"
+                        + "DESCRIÇÃO: %s\n"
+                        + "BENEFICIÁRIO: %s\n"
+                        + "VALOR: R$ %.2f\n"
+                        + "VENCIMENTO: %s\n\n"
+                        + "CONFIRMA A ALTERAÇÃO (S/N)?",
+                        documentos[indice],
+                        novaDesc,
+                        novoBeneficiario,
+                        novoValor,
+                        novoVencimento);
+
+                String resposta = JOptionPane.showInputDialog(mensagem);
+
+                if (resposta != null && !resposta.trim().isEmpty()
+                        && Character.toUpperCase(resposta.trim().charAt(0)) == 'S') {
+
+                    // Atualiza os dados nos vetores
+                    descs[indice] = novaDesc;
+                    beneficiarios[indice] = novoBeneficiario;
+                    valores[indice] = novoValor;
+                    vencimentos[indice] = novoVencimento;
+
+                    JOptionPane.showMessageDialog(null,
+                            "Conta alterada com sucesso!");
+
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Alteração cancelada. Os dados não foram modificados.");
+                }
+            }
+
+            // Verifica se deseja alterar outra conta
+            String resp = JOptionPane.showInputDialog(
+                    "Deseja alterar outra conta? (S/N)?");
+
+            if (resp != null && !resp.trim().isEmpty()) {
+                novaAlteracao = Character.toUpperCase(
+                        resp.trim().charAt(0));
+            } else {
+                novaAlteracao = 'N';
+            }
+
+        } while (novaAlteracao == 'S');
     }
 }
