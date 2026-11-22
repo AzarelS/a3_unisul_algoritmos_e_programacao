@@ -110,6 +110,7 @@ public class Principal {
                         // Verificação da opção escolhida para o menu de Cadastro de Contas
                         switch (relatorios) {
                             case 1: {
+                                Biblioteca.relatorioContasAPagar(documentos, descs, beneficiarios, valores, vencimentos, total);
                                 break;
                             }
                             case 2: {
