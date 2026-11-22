@@ -270,4 +270,124 @@ public class Biblioteca {
 
         JOptionPane.showMessageDialog(null, relatorio);
     }
+    /**
+     * Exibe o relatório de Balanço de Despesas por Período, detalhando mês a mês
+     * o total de despesas e o beneficiário com maior valor acumulado no período.
+     *
+     * @param beneficiarios Vetor com os beneficiários das contas.
+     * @param valores       Vetor com os valores atuais das contas.
+     * @param vencimentos   Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total         Quantidade de contas cadastradas.
+     */
+    public static void relatorioBalancoDespesas(String[] beneficiarios, double[] valores,
+            String[] vencimentos, int total) {
+
+        if (total == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta cadastrada no sistema.");
+            return;
+        }
+
+        String dataInicial = lerData("Informe a data INICIAL do período:");
+        if (dataInicial == null) {
+            return;
+        }
+
+        String dataFinal = lerData("Informe a data FINAL do período:");
+        if (dataFinal == null) {
+            return;
+        }
+
+        int dataIniInt = converterDataParaInt(dataInicial);
+        int dataFimInt = converterDataParaInt(dataFinal);
+
+        if (dataIniInt > dataFimInt) {
+            JOptionPane.showMessageDialog(null, "A data inicial não pode ser maior que a data final.");
+            return;
+        }
+
+        String[] nomesMeses = {
+            "", "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
+            "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"
+        };
+
+        int mesIni = Integer.parseInt(dataInicial.substring(3, 5));
+        int anoIni = Integer.parseInt(dataInicial.substring(6, 10));
+        int mesFim = Integer.parseInt(dataFinal.substring(3, 5));
+        int anoFim = Integer.parseInt(dataFinal.substring(6, 10));
+
+        String textoPeriodo = nomesMeses[mesIni] + "/" + anoIni + " A " + nomesMeses[mesFim] + "/" + anoFim;
+        if (anoIni == anoFim) {
+            textoPeriodo = nomesMeses[mesIni] + " A " + nomesMeses[mesFim] + " DE " + anoIni;
+        }
+
+        LocalDate hoje = LocalDate.now();
+        String dataHoje = String.format("%02d/%02d/%04d", hoje.getDayOfMonth(), hoje.getMonthValue(), hoje.getYear());
+
+        String relatorio = "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                + "SISTEMA DE CONTAS A PAGAR\n\n"
+                + dataHoje + "          BALANÇO DE DESPESAS NO PERÍODO          PG 001\n"
+                + "                    " + textoPeriodo + "\n"
+                + "----------------------------------------------------------------------------------------------------\n"
+                + "MÊS          |  TOTAL DE DESPESAS  |  MAIOR BENEFICIÁRIO\n"
+                + "----------------------------------------------------------------------------------------------------\n";
+
+        double somaGeral = 0;
+        int mesAtual = mesIni;
+        int anoAtual = anoIni;
+
+        while (anoAtual < anoFim || (anoAtual == anoFim && mesAtual <= mesFim)) {
+            double totalMes = 0;
+            String maiorBeneficiario = "-";
+            double maiorValor = 0;
+
+            for (int i = 0; i < total; i++) {
+                int dataVencInt = converterDataParaInt(vencimentos[i]);
+                int mesConta = Integer.parseInt(vencimentos[i].substring(3, 5));
+                int anoConta = Integer.parseInt(vencimentos[i].substring(6, 10));
+
+                if (valores[i] > 0 && dataVencInt >= dataIniInt && dataVencInt <= dataFimInt
+                        && mesConta == mesAtual && anoConta == anoAtual) {
+
+                    totalMes += valores[i];
+
+                    double somaBeneficiario = 0;
+                    for (int j = 0; j < total; j++) {
+                        int dataVencJ = converterDataParaInt(vencimentos[j]);
+                        int mesJ = Integer.parseInt(vencimentos[j].substring(3, 5));
+                        int anoJ = Integer.parseInt(vencimentos[j].substring(6, 10));
+
+                        if (valores[j] > 0 && dataVencJ >= dataIniInt && dataVencJ <= dataFimInt
+                                && mesJ == mesAtual && anoJ == anoAtual
+                                && beneficiarios[j].equalsIgnoreCase(beneficiarios[i])) {
+                            somaBeneficiario += valores[j];
+                        }
+                    }
+
+                    if (somaBeneficiario > maiorValor) {
+                        maiorValor = somaBeneficiario;
+                        maiorBeneficiario = beneficiarios[i];
+                    }
+                }
+            }
+
+            String nomeLinhaMes = nomesMeses[mesAtual] + "/" + anoAtual;
+            if (anoIni == anoFim) {
+                nomeLinhaMes = nomesMeses[mesAtual];
+            }
+
+            relatorio += String.format("%s  |  R$ %.2f  |  %s\n", nomeLinhaMes, totalMes, maiorBeneficiario);
+            somaGeral += totalMes;
+
+            mesAtual++;
+            if (mesAtual > 12) {
+                mesAtual = 1;
+                anoAtual++;
+            }
+        }
+
+        relatorio += "----------------------------------------------------------------------------------------------------\n"
+                + String.format("TOTAL GERAL NO PERÍODO: R$ %.2f", somaGeral);
+
+        JOptionPane.showMessageDialog(null, relatorio);
+    }
 }

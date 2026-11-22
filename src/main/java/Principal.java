@@ -118,6 +118,7 @@ public class Principal {
                                 break;
                             }
                             case 3: {
+                                Biblioteca.relatorioBalancoDespesas(beneficiarios, valores, vencimentos, total);
                                 break;
                             }
                             case 0: {
