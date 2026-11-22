@@ -74,4 +74,49 @@ public class Biblioteca {
 
         return data;
     }
+    
+
+    /**
+     * Ordena os vetores de contas em ordem crescente de data
+     * de vencimento usando metodo bubble sort ensinado em sala.
+     *
+     * @param documentos    Vetor com os números dos documentos.
+     * @param descs         Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores       Vetor com os valores das contas.
+     * @param vencimentos   Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total         Quantidade de contas cadastradas.
+     */
+    public static void ordenarPorVencimento(int[] documentos, String[] descs, String[] beneficiarios,
+            double[] valores, String[] vencimentos, int total) {
+
+        for (int i = 0; i < total - 1; i++) {
+            for (int j = 0; j < total - 1 - i; j++) {
+                int dataAtual = converterDataParaInt(vencimentos[j]);
+                int dataProxima = converterDataParaInt(vencimentos[j + 1]);
+
+                if (dataAtual > dataProxima) {
+                    int auxDoc = documentos[j];
+                    documentos[j] = documentos[j + 1];
+                    documentos[j + 1] = auxDoc;
+
+                    String auxDesc = descs[j];
+                    descs[j] = descs[j + 1];
+                    descs[j + 1] = auxDesc;
+
+                    String auxBen = beneficiarios[j];
+                    beneficiarios[j] = beneficiarios[j + 1];
+                    beneficiarios[j + 1] = auxBen;
+
+                    double auxVal = valores[j];
+                    valores[j] = valores[j + 1];
+                    valores[j + 1] = auxVal;
+
+                    String auxVenc = vencimentos[j];
+                    vencimentos[j] = vencimentos[j + 1];
+                    vencimentos[j + 1] = auxVenc;
+                }
+            }
+        }
+    }
 }
