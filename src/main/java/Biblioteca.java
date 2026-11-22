@@ -195,4 +195,79 @@ public class Biblioteca {
 
         JOptionPane.showMessageDialog(null, relatorio);
     }
+    /**
+     * Exibe o relatório de Contas Vencidas por Período em ordem crescente
+     * de data de vencimento, considerando apenas contas com saldo devedor
+     * maior que zero e com vencimento anterior à data atual.
+     *
+     * @param documentos    Vetor com os números dos documentos.
+     * @param descs         Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores       Vetor com os valores atuais das contas.
+     * @param vencimentos   Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total         Quantidade de contas cadastradas.
+     */
+    public static void relatorioContasVencidas(int[] documentos, String[] descs, String[] beneficiarios,
+            double[] valores, String[] vencimentos, int total) {
+
+        if (total == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta cadastrada no sistema.");
+            return;
+        }
+
+        String dataInicial = lerData("Informe a data INICIAL do período:");
+        if (dataInicial == null) {
+            return;
+        }
+
+        String dataFinal = lerData("Informe a data FINAL do período:");
+        if (dataFinal == null) {
+            return;
+        }
+
+        int dataIniInt = converterDataParaInt(dataInicial);
+        int dataFimInt = converterDataParaInt(dataFinal);
+
+        if (dataIniInt > dataFimInt) {
+            JOptionPane.showMessageDialog(null, "A data inicial não pode ser maior que a data final.");
+            return;
+        }
+
+        ordenarPorVencimento(documentos, descs, beneficiarios, valores, vencimentos, total);
+
+        int dataHojeInt = obterDataAtualInt();
+        LocalDate hoje = LocalDate.now();
+        String dataHoje = String.format("%02d/%02d/%04d", hoje.getDayOfMonth(), hoje.getMonthValue(), hoje.getYear());
+
+        String relatorio = "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                + "SISTEMA DE CONTAS A PAGAR\n"
+                + dataHoje + "   -   CONTAS VENCIDAS POR PERÍODO (" + dataInicial + " a " + dataFinal + ")\n"
+                + "----------------------------------------------------------------------------------------------------\n"
+                + "VENCIMENTO  |  VALOR  |  DOCUMENTO  |  DESCRIÇÃO  |  BENEFICIÁRIO\n"
+                + "----------------------------------------------------------------------------------------------------\n";
+
+        double somaVencidas = 0;
+        int encontradas = 0;
+
+        for (int i = 0; i < total; i++) {
+            int dataVencInt = converterDataParaInt(vencimentos[i]);
+
+            if (valores[i] > 0 && dataVencInt < dataHojeInt && dataVencInt >= dataIniInt && dataVencInt <= dataFimInt) {
+                relatorio += String.format("%s  |  R$ %.2f  |  %d  |  %s  |  %s\n",
+                        vencimentos[i], valores[i], documentos[i], descs[i], beneficiarios[i]);
+                somaVencidas += valores[i];
+                encontradas++;
+            }
+        }
+
+        if (encontradas == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta vencida encontrada no período informado.");
+            return;
+        }
+
+        relatorio += "----------------------------------------------------------------------------------------------------\n"
+                + String.format("TOTAL DE CONTAS VENCIDAS NO PERÍODO: R$ %.2f", somaVencidas);
+
+        JOptionPane.showMessageDialog(null, relatorio);
+    }
 }

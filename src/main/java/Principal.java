@@ -114,6 +114,7 @@ public class Principal {
                                 break;
                             }
                             case 2: {
+                                Biblioteca.relatorioContasVencidas(documentos, descs, beneficiarios, valores, vencimentos, total);
                                 break;
                             }
                             case 3: {
