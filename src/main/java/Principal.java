@@ -73,11 +73,11 @@ public class Principal {
                             }
 
                             case 0: {
-                                JOptionPane.showMessageDialog(null, "Voltando");
+                                JOptionPane.showMessageDialog(null, "Retornando...");
                                 break;
                             }
                             default: {
-                                JOptionPane.showMessageDialog(null, "Opção Inexistente");
+                                JOptionPane.showMessageDialog(null, "Opção Inexistente!");
                                 break;
                             }
                         }
@@ -95,18 +95,15 @@ public class Principal {
                     // Menu de Cadastro de Contas
                     relatorios = -1;
                     do {
-                        relatorios = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                                + "Sistema de Contas a Pagar\n"
-                                + "\n"
-                                + "Relatórios\n"
-                                + "\n"
+                        String entradaRel = JOptionPane.showInputDialog("XYZ COMÉRCIO DE PRODUTOS LTDA.\n"
+                                + "SISTEMA DE CONTAS A PAGAR\n\n"
+                                + "RELATÓRIOS\n\n"
                                 + "1 - Contas a pagar\n"
                                 + "2 - Contas atrasadas\n"
                                 + "3 - Balanço de despesas\n"
-                                + "0 - Retornar\n"
-                                + "\n"
-                                + "Digite a opção desejada: \n"));
-
+                                + "0 - Retornar\n\n"
+                                + "Digite a opção desejada:");
+                        
                         // Verificação da opção escolhida para o menu de Cadastro de Contas
                         switch (relatorios) {
                             case 1: {
@@ -127,7 +124,7 @@ public class Principal {
                                 break;
                             }
                             default: {
-                                JOptionPane.showMessageDialog(null, "Opção Inexistente");
+                                JOptionPane.showMessageDialog(null, "Opção Inexistente!");
                                 break;
                             }
                         }
@@ -137,12 +134,12 @@ public class Principal {
 
                 // Outras Opções
                 case 0: {
-                    JOptionPane.showMessageDialog(null, "Saindo do Programa");
+                    JOptionPane.showMessageDialog(null, "Saindo do Programa.");
                     break;
                 }
 
                 default: {
-                    JOptionPane.showMessageDialog(null, "Opção Inexistente");
+                    JOptionPane.showMessageDialog(null, "Opção Inexistente!");
                     break;
                 }
             }
@@ -164,16 +161,16 @@ public class Principal {
                 break;
             }
 
-            String desc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                    + "--Inclusão de conta--\n\n"
-                    + "Adicione uma descrição a conta: ");
+            String desc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Adicione uma descrição a conta:");
             if (desc == null) {
                 break;
             }
 
-            String beneficiario = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                    + "--Inclusão de conta--\n\n"
-                    + "Informe o beneficiário: ");
+            String beneficiario = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Informe o nome do beneficiário:");
             if (beneficiario == null) {
                 break;
             }
@@ -192,10 +189,10 @@ public class Principal {
                 salvaConta(documento, desc, beneficiario, valor, vencimento);
                 JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
             } else {
-                JOptionPane.showMessageDialog(null, "Inclusão cancelada, os dados não foram salvos.");
+                JOptionPane.showMessageDialog(null, "Inclusão cancelada, os dados não foram salvos!");
             }
 
-            String confirmanovocad = JOptionPane.showInputDialog("Deseja cadastrar outra conta: ( S/N ) ?");
+            String confirmanovocad = JOptionPane.showInputDialog("Deseja cadastrar outra conta? (S/N)");
             if (confirmanovocad != null && !confirmanovocad.trim().isEmpty()) {
                 novocad = confirmanovocad.charAt(0);
             }
@@ -231,23 +228,23 @@ public class Principal {
         boolean valido = false;
 
         while (valido == false) {
-            String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                    + "--Inclusão de conta--\n\n"
-                    + "Informe o número do Documento: ");
+            String entradadoc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Informe o número do Documento:");
             if (entradadoc == null) {
                 return -1;
             }
 
             entradadoc = entradadoc.trim();
             if (!entradadoc.matches("\\d+")) {
-                JOptionPane.showMessageDialog(null, "Digite um número de documento válido.");
+                JOptionPane.showMessageDialog(null, "Digite um número de documento válido!");
                 continue;
             }
 
             documento = Integer.parseInt(entradadoc);
 
             if (buscaDoc(documento) != -1) {
-                JOptionPane.showMessageDialog(null, "Documento ja cadastrado, tente outro.");
+                JOptionPane.showMessageDialog(null, "Documento já cadastrado, tente outro.");
                 continue;
             }
             valido = true;
@@ -266,9 +263,9 @@ public class Principal {
         double valor = -1;
         boolean valido = false;
         while (valido == false) {
-            String entradavalor = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                    + "--Inclusão de conta--\n\n"
-                    + "Informe o valor: ");
+            String entradavalor = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Informe o valor (R$):  ");
             if (entradavalor == null) {
                 return -1;
             }
@@ -276,7 +273,7 @@ public class Principal {
             entradavalor = entradavalor.trim();
 
             if (!entradavalor.matches("\\d+([\\.,]\\d+)?")) {
-                JOptionPane.showMessageDialog(null, "Digite um valor válido.");
+                JOptionPane.showMessageDialog(null, "Digite um valor válido!");
                 continue;
             }
 
@@ -303,10 +300,10 @@ public class Principal {
         boolean valido = false;
 
         while (valido == false) {
-            vencimento = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                    + "--Inclusão de conta--\n\n"
-                    + "Informe a data de vencimento\n"
-                    + "(DD/MM/AAAA): ");
+            vencimento = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Informe a data de vencimento:\n"
+                    + "(DD/MM/AAAA):");
 
             if (vencimento == null) {
                 return null;
@@ -314,8 +311,8 @@ public class Principal {
 
             vencimento = vencimento.trim();
             if (!vencimento.matches("\\d{2}/\\d{2}/\\d{4}")) {
-                JOptionPane.showMessageDialog(null, "\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                        + "--Inclusão de conta--\n\n"
+                JOptionPane.showMessageDialog(null, "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                        + "INCLUSÃO DE CONTA\n\n"
                         + "Informe uma data válida no formato (DD/MM/AAAA).");
                 continue;
             }
@@ -325,9 +322,9 @@ public class Principal {
             int ano = Integer.parseInt(vencimento.substring(6, 10));
 
             if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2100) {
-                JOptionPane.showMessageDialog(null, "\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                        + "--Inclusão de conta--\n\n"
-                        + "Data inválida verifique o dia mês e ano.");
+                JOptionPane.showMessageDialog(null, "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                        + "INCLUSÃO DE CONTA\n\n"
+                        + "Data inválida! Verifique o dia, mês e ano.");
                 continue;
             }
             valido = true;
@@ -348,15 +345,15 @@ public class Principal {
      * cancele.
      */
     public static boolean confirmaInclusao(int documento, String desc, String beneficiario, double valor, String vencimento) {
-        String msgconfirma = String.format("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                + "SISTEMA DE CONTAS A PAGAR\n"
-                + "INCLUSÃO DE CONTA\n"
-                + " DOCUMENTO : %d\n"
-                + " DESCRIÇÃO : %s\n"
-                + " BENEFICIÁRIO : %s\n"
-                + " VALOR : %.2f\n"
-                + " VENCIMENTO : %s\n\n"
-                + "CONFIRMA INCLUSÃO ( S/N ) ?", documento, desc, beneficiario, valor, vencimento);
+        String msgconfirma = String.format("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                + "SISTEMA DE CONTAS A PAGAR\n\n"
+                + "INCLUSÃO DE CONTA\n\n"
+                + "Documento: %d\n"
+                + "Descrição: %s\n"
+                + "Beneficiário: %s\n"
+                + "Valor: R$ %.2f\n"
+                + "Vencimento: %s\n\n"
+                + "CONFIRMA INCLUSÃO? (S/N)", documento, desc, beneficiario, valor, vencimento);
 
         String confirmaconta = JOptionPane.showInputDialog(msgconfirma);
 
@@ -401,10 +398,10 @@ public class Principal {
             if (indiceEncontrado != -1) {
                 exibirConta(indiceEncontrado);
             } else {
-                JOptionPane.showMessageDialog(null, "Documento não encontrado");
+                JOptionPane.showMessageDialog(null, "Documento não encontrado!");
             }
 
-            String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)?");
+            String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)");
 
             if (resp != null && !resp.trim().isEmpty()) {
                 novaconsulta = Character.toUpperCase(resp.trim().charAt(0));
@@ -424,7 +421,7 @@ public class Principal {
      */
     public static int lerDocConsulta() {
         while (true) {
-            String entradadoc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
+            String entradadoc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
                     + "SISTEMA DE CONTAS A PAGAR\n\n"
                     + "CONSULTA DE CONTA\n\n"
                     + "Informe o número do documento para consulta:");
@@ -463,10 +460,10 @@ public class Principal {
     public static void ExcConta() {
         char NovaExc = 'N';
         do {
-            String ContaExc = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                    + "SISTEMA DE CONTAS A PAGAR\n"
-                    + "EXCLUIR CONTA\n"
-                    + "INFORME O NUMERO DO DOCUMENTO A SER EXCLUIDA: ");
+            String ContaExc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "SISTEMA DE CONTAS A PAGAR\n\n"
+                    + "EXCLUSÃO DE CONTA\n\n"
+                    + "Informe o número do documento da conta a ser excluída:");
             if (ContaExc == null) {
                 break;
             }
@@ -499,16 +496,16 @@ public class Principal {
             }
 
             if (indiceEncontrado != -1) {
-                String msg = ("\t\t XYZ COMERCIO DE PRODUTOS LTDA.\n")
-                        + "\tSISTEMA DE CONTAS A PAGAR\n\n"
-                        + "\tEXCLUSÃO DE CONTA\n\n"
+                String msg = ("XYZ COMERCIO DE PRODUTOS LTDA.\n")
+                        + "SISTEMA DE CONTAS A PAGAR\n\n"
+                        + "EXCLUSÃO DE CONTA\n\n"
                         + "Documento: " + documentos[indiceEncontrado] + "\n"
                         + "Descrição: " + descs[indiceEncontrado] + "\n"
                         + "Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
-                        + "Valor: R$ " + valores[indiceEncontrado] + "\n"
+                        + "Valor: R$" + String.format("%.2f", valores[indiceEncontrado]) + "\n"
                         + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
                 JOptionPane.showMessageDialog(null, msg);
-                char DelConta = JOptionPane.showInputDialog(null, "CERTEZA EM EXCLUIR CONTA S/N: ").charAt(0);
+                char DelConta = JOptionPane.showInputDialog(null, "Você confirma essa ação? (S/N)").charAt(0);
                 if (DelConta == 'S' || DelConta == 's') {
                     for (int i = indiceEncontrado; i < total - 1; i++) {
                         documentos[i] = documentos[i + 1];
@@ -518,19 +515,19 @@ public class Principal {
                         vencimentos[i] = vencimentos[i + 1];
                     }
                     total--;
-                    JOptionPane.showMessageDialog(null, "CONTA EXCLUÍDA COM SUCESSO!");
+                    JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
                 } else {
                     if (DelConta == 'N' || DelConta == 'n') {
-                        JOptionPane.showMessageDialog(null, "EXCLUÇÃO CANCELADA");
+                        JOptionPane.showMessageDialog(null, "EXCLUSÃO CANCELADA!");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Opção invalida");
+                        JOptionPane.showMessageDialog(null, "Opção inválida!");
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Documento não encontrado");
+                JOptionPane.showMessageDialog(null, "Documento não encontrado!");
             }
 
-            String resp = JOptionPane.showInputDialog("Deseja fazer uma outra Exclução? (S/N)?");
+            String resp = JOptionPane.showInputDialog("Deseja fazer outra Exclusão? (S/N)?");
 
             if (resp != null && !resp.trim().isEmpty()) {
                 NovaExc = Character.toUpperCase(resp.trim().charAt(0));
@@ -551,11 +548,10 @@ public class Principal {
     public static void baixaconta() {
         char NovaBaixa = 'N';
         do {
-            String baixacontas = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                    + "SISTEMA DE CONTAS A PAGAR\n"
-                    + "\n"
-                    + "MOVIMENTAÇÃO - BAIXA DE CONTA\n"
-                    + "INFORME O NUMERO DO C DOCUMENTO A SER MOVIMENTADA");
+            String baixacontas = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "SISTEMA DE CONTAS A PAGAR\n\n"
+                    + "MOVIMENTAÇÃO - BAIXA DE CONTA\n\n"
+                    + "Informe o número do documento a ser movimentado:");
             if (baixacontas == null) {
                 break;
             }
@@ -584,34 +580,35 @@ public class Principal {
             }
             double valorfinal = 0;
             if (indiceencontrado != -1) {
-                String msg = ("\t\t XYZ COMERCIO DE PROFUTOS LTDA.\n")
-                        + "\tSISTEMA DE CONTAS A PAGAR\n\n"
-                        + "\tMOVIMENTAÇÃO - BAIXA DE CONTA\n\n"
+                String msg = ("XYZ COMERCIO DE PRODUTOS LTDA.\n")
+                        + "SISTEMA DE CONTAS A PAGAR\n\n"
+                        + "MOVIMENTAÇÃO - BAIXA DE CONTA\n\n"
                         + "Documento: " + documentos[indiceencontrado] + "\n"
-                        + "Descrição" + descs[indiceencontrado] + "\n"
+                        + "Descrição: " + descs[indiceencontrado] + "\n"
                         + "Beneficiário: " + beneficiarios[indiceencontrado] + "\n"
-                        + "valor: R$ " + valores[indiceencontrado] + "\n";
+                        + "Valor atual: R$" + String.format("%.2f", valores[indiceencontrado]) + "\n";
 
-                double valordiminuir = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a diminuir"));
+                double valordiminuir = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a diminuir:"));
                 JOptionPane.showMessageDialog(null, msg);
-                char MovimentacaoConta = JOptionPane.showInputDialog(null, "CERTEZA EM BAIXAR CONTA S/N:").charAt(0);
+                char MovimentacaoConta = JOptionPane.showInputDialog(null, "Você confirma essa ação? (S/N):").charAt(0);
                 if (MovimentacaoConta == 'S' || MovimentacaoConta == 's') {
                     for (int i = indiceencontrado; i < total; i++) {
                         valorfinal = valores[indiceencontrado] - valordiminuir;
                         valores[indiceencontrado] = valorfinal;
-                        JOptionPane.showMessageDialog(null, "CONTA BAIXADA COM SUCESSO!");
+                        JOptionPane.showMessageDialog(null, "Conta baixada com sucesso!");
                     }
                 } else {
                     if (MovimentacaoConta == 'N' || MovimentacaoConta == 'n') {
-                        JOptionPane.showMessageDialog(null, "BAIXA DE CONTA CANCELADA");
+                        JOptionPane.showMessageDialog(null, "Baixa de conta cancelada");
                     } else {
-                        JOptionPane.showMessageDialog(null, "OPÇÃO INVALIDA");
+                        JOptionPane.showMessageDialog(null, "Opção inválida!");
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "DOCUMENTO NÃO ENCONTRADO");
+                JOptionPane.showMessageDialog(null, "Documento não encontrado!"
+                        + "");
             }
-            String resp = JOptionPane.showInputDialog("DESEJA FAZER UMA OUTRA BAIXA (S/N)?");
+            String resp = JOptionPane.showInputDialog("Deseja fazer outra baixa? (S/N)");
             if (resp != null && !resp.trim().isEmpty()) {
                 NovaBaixa = Character.toUpperCase(resp.trim().charAt(0));
             } else {
@@ -627,13 +624,13 @@ public class Principal {
      * @param indiceEncontrado A posição (índice) da conta nos vetores.
      */
     public static void exibirConta(int indiceEncontrado) {
-        String msg = ("\t\t XYZ COMERCIO DE PRODUTOS LTDA.\n")
-                + "\tSISTEMA DE CONTAS A PAGAR\n\n"
-                + "\tCONSULTA DE CONTA\n\n"
+        String msg = ("XYZ COMERCIO DE PRODUTOS LTDA.\n")
+                + "SISTEMA DE CONTAS A PAGAR\n\n"
+                + "CONSULTA DE CONTA\n\n"
                 + "Documento: " + documentos[indiceEncontrado] + "\n"
                 + "Descrição: " + descs[indiceEncontrado] + "\n"
                 + "Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
-                + "Valor: R$ " + valores[indiceEncontrado] + "\n"
+                + "Valor: R$ " + String.format("%.2f", valores[indiceEncontrado]) + "\n"
                 + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
         JOptionPane.showMessageDialog(null, msg);
     }
@@ -642,17 +639,14 @@ public class Principal {
         // Menu Principal
         menuprincipal = -1;
 
-        menuprincipal = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                + "Sistema de Contas a Pagar\n"
-                + "\n"
-                + "Menu Principal\n"
-                + "\n"
+        menuprincipal = Integer.parseInt(JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                + "SISTEMA DE CONTAS A PAGAR\n\n"
+                + "MENU PRINCIPAL\n\n"
                 + "1 - Cadastro de Contas\n"
                 + "2 - Baixa de Conta\n"
-                + "3 - Relatótios\n"
-                + "0 - Sair de Programa\n"
-                + "\n"
-                + "Digite a opção desejada: \n"));
+                + "3 - Relatórios\n"
+                + "0 - Sair do Programa\n\n"
+                + "Digite a opção desejada:"));
         return (menuprincipal);
     }
 
@@ -660,19 +654,15 @@ public class Principal {
         // Menu de Cadastro de Contas
         cadcontas = -1;
 
-        cadcontas = Integer.parseInt(JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"
-                + "Sistema de Contas a Pagar\n"
-                + "\n"
-                + "Cadastro de Contas\n"
-                + "\n"
+        cadcontas = Integer.parseInt(JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                + "SISTEMA DE CONTAS A PAGAR\n\n"
+                + "CADASTRO DE CONTAS\n\n"
                 + "1 - Inclusão\n"
                 + "2 - Alteração\n"
                 + "3 - Consulta\n"
                 + "4 - Exclusão\n"
-                + "0 - Retornar\n"
-                + "\n"
-                + "Digite a opção desejada: \n"));
-
+                + "0 - Retornar\n\n"
+                + "Digite a opção desejada:"));
         return (cadcontas);
     }
 
@@ -681,7 +671,7 @@ public class Principal {
 
         do {
             String entradaDoc = JOptionPane.showInputDialog(
-                    "\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    "XYZ COMERCIO DE PRODUTOS LTDA.\n"
                     + "SISTEMA DE CONTAS A PAGAR\n\n"
                     + "ALTERAÇÃO DE CONTA\n\n"
                     + "Informe o número do documento da conta:");
@@ -704,7 +694,7 @@ public class Principal {
 
             if (nvalido == false) {
                 JOptionPane.showMessageDialog(null,
-                        "Digite um número de documento válido.");
+                        "Por favor, digite um número de documento válido!");
                 continue;
             }
 
@@ -752,15 +742,15 @@ public class Principal {
 
                 // Exibe os novos dados para confirmação
                 String mensagem = String.format(
-                        "\t XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                        + "SISTEMA DE CONTAS A PAGAR\n"
+                        "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                        + "SISTEMA DE CONTAS A PAGAR\n\n"
                         + "ALTERAÇÃO DE CONTA\n\n"
-                        + "DOCUMENTO: %d\n"
-                        + "DESCRIÇÃO: %s\n"
-                        + "BENEFICIÁRIO: %s\n"
-                        + "VALOR: R$ %.2f\n"
-                        + "VENCIMENTO: %s\n\n"
-                        + "CONFIRMA A ALTERAÇÃO (S/N)?",
+                        + "Documento: %d\n"
+                        + "Descrição: %s\n"
+                        + "Beneficiario: %s\n"
+                        + "Valor: R$ %.2f\n"
+                        + "Vencimento: %s\n\n"
+                        + "CONFIRMA A ALTERAÇÃO? (S/N)",
                         documentos[indice],
                         novaDesc,
                         novoBeneficiario,
@@ -783,13 +773,13 @@ public class Principal {
 
                 } else {
                     JOptionPane.showMessageDialog(null,
-                            "Alteração cancelada. Os dados não foram modificados.");
+                            "Alteração cancelada! Os dados não foram modificados.");
                 }
             }
 
             // Verifica se deseja alterar outra conta
             String resp = JOptionPane.showInputDialog(
-                    "Deseja alterar outra conta? (S/N)?");
+                    "Deseja alterar outra conta? (S/N)");
 
             if (resp != null && !resp.trim().isEmpty()) {
                 novaAlteracao = Character.toUpperCase(
