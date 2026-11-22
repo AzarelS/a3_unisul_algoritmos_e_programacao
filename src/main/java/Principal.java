@@ -104,6 +104,26 @@ public class Principal {
                                 + "0 - Retornar\n\n"
                                 + "Digite a opção desejada:");
                         
+                        if (entradaRel == null) {
+                            relatorios = 0;
+                        } else {
+                            entradaRel = entradaRel.trim();
+                            boolean ehNumero = !entradaRel.isEmpty();
+
+                            for (int i = 0; i < entradaRel.length(); i++) {
+                                if (!Character.isDigit(entradaRel.charAt(i))) {
+                                    ehNumero = false;
+                                    break;
+                                }
+                            }
+
+                            if (ehNumero) {
+                                relatorios = Integer.parseInt(entradaRel);
+                            } else {
+                                relatorios = -1;
+                            }
+                        }
+                        
                         // Verificação da opção escolhida para o menu de Cadastro de Contas
                         switch (relatorios) {
                             case 1: {
