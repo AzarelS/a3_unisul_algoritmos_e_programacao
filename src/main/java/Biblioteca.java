@@ -34,9 +34,6 @@ public class Biblioteca {
     
     //Variavel que define o número do documento
     static int documento;
-   
-
-
 
     /**
      * Converte uma data no formato DD/MM/AAAA para um inteiro AAAAMMDD, para

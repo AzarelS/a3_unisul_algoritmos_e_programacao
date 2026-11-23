@@ -1,3 +1,4 @@
+
 import javax.swing.JOptionPane;
 
 public class Principal {
@@ -23,13 +24,13 @@ public class Principal {
 
     //Controla e registra o número de contas cadastradas
     static int total = 0;
-    
+
     //Variavel de verificação se um dado é ou não valido
     static boolean valido = false;
-    
+
     //Variavel que define o número do documento
     static int documento;
-    
+
     //Variavel reponsavel por confirmar(S/N) um procedimento
     static char resposta = 0;
 
@@ -104,7 +105,7 @@ public class Principal {
                                 + "3 - Balanço de despesas\n"
                                 + "0 - Retornar\n\n"
                                 + "Digite a opção desejada:");
-                        
+
                         if (entradaRel == null) {
                             relatorios = 0;
                         } else {
@@ -124,7 +125,7 @@ public class Principal {
                                 relatorios = -1;
                             }
                         }
-                        
+
                         // Verificação da opção escolhida para o menu de Relatorio de Contas
                         switch (relatorios) {
                             case 1: {
@@ -656,6 +657,13 @@ public class Principal {
         JOptionPane.showMessageDialog(null, msg);
     }
 
+    /**
+     * Exibe o menu principal do sistema de contas a pagar, permitindo ao
+     * usuário selecionar entre as opções de cadastro de contas, baixa de conta,
+     * relatórios ou saída do programa.
+     *
+     * @return A opção escolhida pelo usuário.
+     */
     public static int menuPrincipal() {
         // Menu Principal
         menuprincipal = -1;
@@ -671,6 +679,13 @@ public class Principal {
         return (menuprincipal);
     }
 
+    /**
+     * Exibe o menu de cadastro de contas, permitindo ao usuário selecionar
+     * entre as opções de inclusão, alteração, consulta, exclusão de contas ou
+     * retorno ao menu principal.
+     *
+     * @return A opção escolhida pelo usuário.
+     */
     public static int menuCadContas() {
         // Menu de Cadastro de Contas
         cadcontas = -1;
@@ -687,6 +702,12 @@ public class Principal {
         return (cadcontas);
     }
 
+    /**
+     * Gerencia o processo de alteração de contas a pagar, solicitando o número
+     * do documento, localizando a conta cadastrada, permitindo a modificação de
+     * seus dados e solicitando a confirmação do usuário antes de salvar as
+     * alterações.
+     */
     public static void alterarConta() {
         char novaAlteracao = 'N';
 
