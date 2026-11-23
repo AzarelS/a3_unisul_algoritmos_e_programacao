@@ -2,13 +2,35 @@ import javax.swing.JOptionPane;
 import java.time.LocalDate;
 
 public class Biblioteca {
+    
+    //Constante para tamanho limite dos vetores
+    static int n = 100;
 
-    public static int menuCadContas() {
+    //Vetores e contador declarados fora das subrotinas
+    //Registra em vetores todos os documentos cadastrados
+    static int documentos[] = new int[n];
 
-        int cadcontas = -1;
-        
-    return (cadcontas);
-    }
+    //Registra em vetores todos os beneficiarios cadastrados
+    static String beneficiarios[] = new String[n];
+
+    //Registra em vetores as descrições de cada conta cadastrada
+    static String descs[] = new String[n];
+
+    //Registra em vetores todos os valores cadastrados
+    static double valores[] = new double[n];
+
+    //Registra em vetores todas as datas de vencimento cadastradas
+    static String vencimentos[] = new String[n];
+
+    //Controla e registra o número de contas cadastradas
+    static int total = 0;
+    
+    //Variavel de verificação se um dado é ou não valido
+    static boolean valido = false;
+    
+    //Variavel reponsavel por confirmar(S/N) um procedimento
+    static char resposta;
+
     /**
      * Converte uma data no formato DD/MM/AAAA para um inteiro AAAAMMDD,
      * para que as datas mais recentes sejam maiores que datas mais antigas evitando conflito.
@@ -32,7 +54,6 @@ public class Biblioteca {
         LocalDate hoje = LocalDate.now();
         return (hoje.getYear() * 10000) + (hoje.getMonthValue() * 100) + hoje.getDayOfMonth();
     }
-    
 
     /**
      * Solicita e valida uma data no formato DD/MM/AAAA exibindo uma mensagem
@@ -43,7 +64,7 @@ public class Biblioteca {
      */
     public static String lerData(String mensagem) {
         String data = "";
-        boolean valido = false;
+        valido = false;
 
         while (!valido) {
             data = JOptionPane.showInputDialog("\t XYZ COMERCIO DE PRODUTOS LTDA. \n"

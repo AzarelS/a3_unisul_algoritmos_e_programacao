@@ -1,4 +1,3 @@
-
 import javax.swing.JOptionPane;
 
 public class Principal {
@@ -34,11 +33,6 @@ public class Principal {
         int baicontas, relatorios;
         char resposta;
         // resposta = variavel tipo char para responder S/N
-        // cadcontas: cadastro de  contas
-        // inccontas: inclusão de conta
-        // altcontas: alteração de conta
-        // concontas: consulta de conta
-        // excontas: exclusão de conta
         // baicontas: baixa de conta
 
         //Controla e registra o número de contas cadastradas
