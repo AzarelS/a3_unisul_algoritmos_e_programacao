@@ -1,8 +1,9 @@
+
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
 
 public class Biblioteca {
-    
+
     //Constante para tamanho limite dos vetores
     static int n = 100;
 
@@ -24,16 +25,23 @@ public class Biblioteca {
 
     //Controla e registra o número de contas cadastradas
     static int total = 0;
-    
+
     //Variavel de verificação se um dado é ou não valido
     static boolean valido = false;
-    
+
     //Variavel reponsavel por confirmar(S/N) um procedimento
-    static char resposta;
+    static char resposta = 0;
+    
+    //Variavel que define o número do documento
+    static int documento;
+   
+
+
 
     /**
-     * Converte uma data no formato DD/MM/AAAA para um inteiro AAAAMMDD,
-     * para que as datas mais recentes sejam maiores que datas mais antigas evitando conflito.
+     * Converte uma data no formato DD/MM/AAAA para um inteiro AAAAMMDD, para
+     * que as datas mais recentes sejam maiores que datas mais antigas evitando
+     * conflito.
      *
      * @param data Data no formato DD/MM/AAAA.
      * @return Inteiro no formato AAAAMMDD.
@@ -46,7 +54,8 @@ public class Biblioteca {
     }
 
     /**
-     * Obtém a data atual do sistema convertida no formato inteiro AAAAMMDD para que a data atual seja maior que alguma data passada.
+     * Obtém a data atual do sistema convertida no formato inteiro AAAAMMDD para
+     * que a data atual seja maior que alguma data passada.
      *
      * @return Data de hoje no formato AAAAMMDD.
      */
@@ -60,7 +69,8 @@ public class Biblioteca {
      * personalizada ao usuário conforme contexto necessário da solicitação.
      *
      * @param mensagem Texto exibido na caixa de diálogo.
-     * @return A data validada no formato DD/MM/AAAA, ou null caso o usuário cancele.
+     * @return A data validada no formato DD/MM/AAAA, ou null caso o usuário
+     * cancele.
      */
     public static String lerData(String mensagem) {
         String data = "";
@@ -95,18 +105,17 @@ public class Biblioteca {
 
         return data;
     }
-    
 
     /**
-     * Ordena os vetores de contas em ordem crescente de data
-     * de vencimento usando metodo bubble sort ensinado em sala.
+     * Ordena os vetores de contas em ordem crescente de data de vencimento
+     * usando metodo bubble sort ensinado em sala.
      *
-     * @param documentos    Vetor com os números dos documentos.
-     * @param descs         Vetor com as descrições das contas.
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
      * @param beneficiarios Vetor com os beneficiários.
-     * @param valores       Vetor com os valores das contas.
-     * @param vencimentos   Vetor com as datas de vencimento (DD/MM/AAAA).
-     * @param total         Quantidade de contas cadastradas.
+     * @param valores Vetor com os valores das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade de contas cadastradas.
      */
     public static void ordenarPorVencimento(int[] documentos, String[] descs, String[] beneficiarios,
             double[] valores, String[] vencimentos, int total) {
@@ -140,19 +149,18 @@ public class Biblioteca {
             }
         }
     }
-    
 
     /**
-     * Exibe o relatório de contas a pagar por período em ordem crescente
-     * de data de vencimento, considerando apenas contas com valor final
-     * maior que zero.
+     * Exibe o relatório de contas a pagar por período em ordem crescente de
+     * data de vencimento, considerando apenas contas com valor final maior que
+     * zero.
      *
-     * @param documentos    Vetor com os números dos documentos.
-     * @param descs         Vetor com as descrições das contas.
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
      * @param beneficiarios Vetor com os beneficiários.
-     * @param valores       Vetor com os valores atuais das contas.
-     * @param vencimentos   Vetor com as datas de vencimento (DD/MM/AAAA).
-     * @param total         Quantidade de contas cadastradas.
+     * @param valores Vetor com os valores atuais das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade de contas cadastradas.
      */
     public static void relatorioContasAPagar(int[] documentos, String[] descs, String[] beneficiarios,
             double[] valores, String[] vencimentos, int total) {
@@ -216,17 +224,18 @@ public class Biblioteca {
 
         JOptionPane.showMessageDialog(null, relatorio);
     }
+
     /**
-     * Exibe o relatório de Contas Vencidas por Período em ordem crescente
-     * de data de vencimento, considerando apenas contas com saldo devedor
-     * maior que zero e com vencimento anterior à data atual.
+     * Exibe o relatório de Contas Vencidas por Período em ordem crescente de
+     * data de vencimento, considerando apenas contas com saldo devedor maior
+     * que zero e com vencimento anterior à data atual.
      *
-     * @param documentos    Vetor com os números dos documentos.
-     * @param descs         Vetor com as descrições das contas.
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
      * @param beneficiarios Vetor com os beneficiários.
-     * @param valores       Vetor com os valores atuais das contas.
-     * @param vencimentos   Vetor com as datas de vencimento (DD/MM/AAAA).
-     * @param total         Quantidade de contas cadastradas.
+     * @param valores Vetor com os valores atuais das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade de contas cadastradas.
      */
     public static void relatorioContasVencidas(int[] documentos, String[] descs, String[] beneficiarios,
             double[] valores, String[] vencimentos, int total) {
@@ -291,14 +300,16 @@ public class Biblioteca {
 
         JOptionPane.showMessageDialog(null, relatorio);
     }
+
     /**
-     * Exibe o relatório de Balanço de Despesas por Período, detalhando mês a mês
-     * o total de despesas e o beneficiário com maior valor acumulado no período.
+     * Exibe o relatório de Balanço de Despesas por Período, detalhando mês a
+     * mês o total de despesas e o beneficiário com maior valor acumulado no
+     * período.
      *
      * @param beneficiarios Vetor com os beneficiários das contas.
-     * @param valores       Vetor com os valores atuais das contas.
-     * @param vencimentos   Vetor com as datas de vencimento (DD/MM/AAAA).
-     * @param total         Quantidade de contas cadastradas.
+     * @param valores Vetor com os valores atuais das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade de contas cadastradas.
      */
     public static void relatorioBalancoDespesas(String[] beneficiarios, double[] valores,
             String[] vencimentos, int total) {

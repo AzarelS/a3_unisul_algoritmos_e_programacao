@@ -23,6 +23,15 @@ public class Principal {
 
     //Controla e registra o número de contas cadastradas
     static int total = 0;
+    
+    //Variavel de verificação se um dado é ou não valido
+    static boolean valido = false;
+    
+    //Variavel que define o número do documento
+    static int documento;
+    
+    //Variavel reponsavel por confirmar(S/N) um procedimento
+    static char resposta = 0;
 
     //Variaveis responsaveis pela escolha de opçoes nos menus
     static int menuprincipal, cadcontas;
@@ -31,8 +40,6 @@ public class Principal {
 
         // Variaveis:
         int baicontas, relatorios;
-        char resposta;
-        // resposta = variavel tipo char para responder S/N
         // baicontas: baixa de conta
 
         //Controla e registra o número de contas cadastradas
@@ -86,7 +93,7 @@ public class Principal {
                 }
                 case 3: {
 
-                    // Menu de Cadastro de Contas
+                    // Menu de Relatorio de Contas
                     relatorios = -1;
                     do {
                         String entradaRel = JOptionPane.showInputDialog("XYZ COMÉRCIO DE PRODUTOS LTDA.\n"
@@ -102,23 +109,23 @@ public class Principal {
                             relatorios = 0;
                         } else {
                             entradaRel = entradaRel.trim();
-                            boolean ehNumero = !entradaRel.isEmpty();
+                            valido = !entradaRel.isEmpty();
 
                             for (int i = 0; i < entradaRel.length(); i++) {
                                 if (!Character.isDigit(entradaRel.charAt(i))) {
-                                    ehNumero = false;
+                                    valido = false;
                                     break;
                                 }
                             }
 
-                            if (ehNumero) {
+                            if (valido) {
                                 relatorios = Integer.parseInt(entradaRel);
                             } else {
                                 relatorios = -1;
                             }
                         }
                         
-                        // Verificação da opção escolhida para o menu de Cadastro de Contas
+                        // Verificação da opção escolhida para o menu de Relatorio de Contas
                         switch (relatorios) {
                             case 1: {
                                 Biblioteca.relatorioContasAPagar(documentos, descs, beneficiarios, valores, vencimentos, total);
@@ -170,7 +177,7 @@ public class Principal {
     public static void incluirConta() {
         char novocad = 0;
         do {
-            int documento = lerDoc();
+            documento = lerDoc();
             if (documento == -1) {
                 break;
             }
@@ -238,8 +245,8 @@ public class Principal {
      * operação.
      */
     public static int lerDoc() {
-        int documento = -1;
-        boolean valido = false;
+        documento = -1;
+        valido = false;
 
         while (valido == false) {
             String entradadoc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
@@ -275,7 +282,7 @@ public class Principal {
      */
     public static double lerValorValido() {
         double valor = -1;
-        boolean valido = false;
+        valido = false;
         while (valido == false) {
             String entradavalor = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
                     + "INCLUSÃO DE CONTA\n\n"
@@ -311,7 +318,7 @@ public class Principal {
      */
     public static String lerDataValida() {
         String vencimento = "";
-        boolean valido = false;
+        valido = false;
 
         while (valido == false) {
             vencimento = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
@@ -446,16 +453,16 @@ public class Principal {
 
             entradadoc = entradadoc.trim();
 
-            boolean ehNumero = !entradadoc.isEmpty();
+            valido = !entradadoc.isEmpty();
 
             for (int i = 0; i < entradadoc.length(); i++) {
                 if (!Character.isDigit(entradadoc.charAt(i))) {
-                    ehNumero = false;
+                    valido = false;
                     break;
                 }
             }
 
-            if (!ehNumero) {
+            if (!valido) {
                 JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
                 continue;
             }
@@ -483,16 +490,16 @@ public class Principal {
             }
             ContaExc = ContaExc.trim();
 
-            boolean ehNumero = !ContaExc.isEmpty();
+            valido = !ContaExc.isEmpty();
 
             for (int i = 0; i < ContaExc.length(); i++) {
                 if (!Character.isDigit(ContaExc.charAt(i))) {
-                    ehNumero = false;
+                    valido = false;
                     break;
                 }
             }
 
-            if (!ehNumero) {
+            if (!valido) {
                 JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
                 NovaExc = 'S';
                 continue;
@@ -570,15 +577,15 @@ public class Principal {
                 break;
             }
             baixacontas = baixacontas.trim();
-            boolean ehNumero = !baixacontas.isEmpty();
+            valido = !baixacontas.isEmpty();
 
             for (int i = 0; i < baixacontas.length(); i++) {
                 if (!Character.isDigit(baixacontas.charAt(i))) {
-                    ehNumero = false;
+                    valido = false;
                     break;
                 }
             }
-            if (!ehNumero) {
+            if (!valido) {
                 JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
                 NovaBaixa = 'S';
                 continue;
@@ -697,22 +704,22 @@ public class Principal {
             entradaDoc = entradaDoc.trim();
 
             // Validação do documento
-            boolean nvalido = true;
+            valido = true;
 
             for (int i = 0; i < entradaDoc.length(); i++) {
                 if (Character.isDigit(entradaDoc.charAt(i)) == false) {
-                    nvalido = false;
+                    valido = false;
                     break;
                 }
             }
 
-            if (nvalido == false) {
+            if (valido == false) {
                 JOptionPane.showMessageDialog(null,
                         "Por favor, digite um número de documento válido!");
                 continue;
             }
 
-            int documento = Integer.parseInt(entradaDoc);
+            documento = Integer.parseInt(entradaDoc);
 
             // Busca da conta cadastrada
             int indice = buscaDoc(documento);
