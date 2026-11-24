@@ -62,7 +62,7 @@ public class Principal {
                                 break;
                             }
                             case 2: {
-                                alterarConta();
+                                Biblioteca.alterarConta();
                                 break;
                             }
                             case 3: {
