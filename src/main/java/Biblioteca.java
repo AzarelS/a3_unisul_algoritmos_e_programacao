@@ -31,7 +31,7 @@ public class Biblioteca {
 
     //Variavel reponsavel por confirmar(S/N) um procedimento
     static char resposta = 0;
-    
+
     //Variavel que define o número do documento
     static int documento;
 
@@ -418,5 +418,129 @@ public class Biblioteca {
                 + String.format("TOTAL GERAL NO PERÍODO: R$ %.2f", somaGeral);
 
         JOptionPane.showMessageDialog(null, relatorio);
+    }
+
+    /**
+     * Pesquisa um número de documento no vetor de documentos cadastrados.
+     *
+     * @param documentos Vetor com os números dos documentos.
+     * @param total Quantidade de contas cadastradas.
+     * @param pesquisaDoc O número do documento que se deseja localizar.
+     * @return O índice (posição) do documento no vetor, ou -1 caso não seja
+     * encontrado.
+     */
+    public static int buscaDocBiblioteca(int[] documentos, int total, int pesquisaDoc) {
+        for (int i = 0; i < total; i++) {
+            if (documentos[i] == pesquisaDoc) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Solicita ao usuário o número do documento para consulta via caixa de
+     * diálogo, validando se a entrada contém apenas dígitos numéricos.
+     *
+     * @return O número do documento validado, ou -1 caso o usuário cancele a
+     * operação.
+     */
+    public static int lerDocConsulta() {
+        while (true) {
+            String entradadoc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "SISTEMA DE CONTAS A PAGAR\n\n"
+                    + "CONSULTA DE CONTA\n\n"
+                    + "Informe o número do documento para consulta:");
+
+            if (entradadoc == null) {
+                return -1;
+            }
+
+            entradadoc = entradadoc.trim();
+            valido = !entradadoc.isEmpty();
+
+            for (int i = 0; i < entradadoc.length(); i++) {
+                if (!Character.isDigit(entradadoc.charAt(i))) {
+                    valido = false;
+                    break;
+                }
+            }
+
+            if (!valido) {
+                JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
+                continue;
+            }
+
+            return Integer.parseInt(entradadoc);
+        }
+    }
+
+    /**
+     * Exibe uma caixa de diálogo com os dados completos de uma conta cadastrada
+     * a partir de sua posição nos vetores.
+     *
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores Vetor com os valores das contas.
+     * @param vencimentos Vetor com as datas de vencimento.
+     * @param indiceEncontrado A posição (índice) da conta nos vetores.
+     */
+    public static void exibirConta(int[] documentos, String[] descs, String[] beneficiarios,
+            double[] valores, String[] vencimentos, int indiceEncontrado) {
+        String msg = "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                + "SISTEMA DE CONTAS A PAGAR\n\n"
+                + "CONSULTA DE CONTA\n\n"
+                + "Documento: " + documentos[indiceEncontrado] + "\n"
+                + "Descrição: " + descs[indiceEncontrado] + "\n"
+                + "Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
+                + "Valor: R$ " + String.format("%.2f", valores[indiceEncontrado]) + "\n"
+                + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
+        JOptionPane.showMessageDialog(null, msg);
+    }
+
+    /**
+     * Gerencia o fluxo completo de consulta de contas a pagar, coordenando a
+     * leitura do documento, busca nos vetores e exibição dos dados.
+     *
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores Vetor com os valores das contas.
+     * @param vencimentos Vetor com as datas de vencimento.
+     * @param total Quantidade de contas cadastradas.
+     */
+    public static void consultarConta(int[] documentos, String[] descs, String[] beneficiarios,
+            double[] valores, String[] vencimentos, int total) {
+
+        if (total == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta cadastrada no sistema.");
+            return;
+        }
+
+        char novaconsulta = 'N';
+        do {
+            int docConsulta = lerDocConsulta();
+            if (docConsulta == -1) {
+                break;
+            }
+
+            int indiceEncontrado = buscaDocBiblioteca(documentos, total, docConsulta);
+
+            if (indiceEncontrado != -1) {
+                exibirConta(documentos, descs, beneficiarios, valores, vencimentos, indiceEncontrado);
+            } else {
+                JOptionPane.showMessageDialog(null, "Documento não encontrado!");
+            }
+
+            String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)");
+
+            if (resp != null && !resp.trim().isEmpty()) {
+                novaconsulta = Character.toUpperCase(resp.trim().charAt(0));
+            } else {
+                novaconsulta = 'N';
+            }
+
+        } while (novaconsulta == 'S');
     }
 }

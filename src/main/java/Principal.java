@@ -66,7 +66,7 @@ public class Principal {
                                 break;
                             }
                             case 3: {
-                                consultarConta();
+                                Biblioteca.consultarConta(documentos, descs, beneficiarios, valores, vencimentos, total);
                                 break;
                             }
                             case 4: {
@@ -404,75 +404,6 @@ public class Principal {
     }
 
     /**
-     * Gerencia o fluxo completo de consulta de contas a pagar, coordenando a
-     * leitura do documento, busca nos vetores e exibição dos dados.
-     */
-    public static void consultarConta() {
-        char novaconsulta = 'N';
-        do {
-            int docConsulta = lerDocConsulta();
-            if (docConsulta == -1) {
-                break;
-            }
-
-            int indiceEncontrado = buscaDoc(docConsulta);
-
-            if (indiceEncontrado != -1) {
-                exibirConta(indiceEncontrado);
-            } else {
-                JOptionPane.showMessageDialog(null, "Documento não encontrado!");
-            }
-
-            String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)");
-
-            if (resp != null && !resp.trim().isEmpty()) {
-                novaconsulta = Character.toUpperCase(resp.trim().charAt(0));
-            } else {
-                novaconsulta = 'N';
-            }
-
-        } while (novaconsulta == 'S');
-    }
-
-    /**
-     * Solicita ao usuário o número do documento para consulta via caixa de
-     * diálogo, validando se a entrada contém apenas dígitos numéricos.
-     *
-     * @return O número do documento validado, ou -1 caso o usuário cancele a
-     * operação.
-     */
-    public static int lerDocConsulta() {
-        while (true) {
-            String entradadoc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                    + "SISTEMA DE CONTAS A PAGAR\n\n"
-                    + "CONSULTA DE CONTA\n\n"
-                    + "Informe o número do documento para consulta:");
-
-            if (entradadoc == null) {
-                return -1;
-            }
-
-            entradadoc = entradadoc.trim();
-
-            valido = !entradadoc.isEmpty();
-
-            for (int i = 0; i < entradadoc.length(); i++) {
-                if (!Character.isDigit(entradadoc.charAt(i))) {
-                    valido = false;
-                    break;
-                }
-            }
-
-            if (!valido) {
-                JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
-                continue;
-            }
-
-            return Integer.parseInt(entradadoc);
-        }
-    }
-
-    /**
      * Solicita ao usuário o número do documento para excluir a conta via caixa
      * de diálogo, validando se a entrada contém apenas dígitos numéricos.
      *
@@ -640,24 +571,6 @@ public class Principal {
     }
 
     /**
-     * Exibe uma caixa de diálogo com os dados completos de uma conta cadastrada
-     * a partir de sua posição nos vetores.
-     *
-     * @param indiceEncontrado A posição (índice) da conta nos vetores.
-     */
-    public static void exibirConta(int indiceEncontrado) {
-        String msg = ("XYZ COMERCIO DE PRODUTOS LTDA.\n")
-                + "SISTEMA DE CONTAS A PAGAR\n\n"
-                + "CONSULTA DE CONTA\n\n"
-                + "Documento: " + documentos[indiceEncontrado] + "\n"
-                + "Descrição: " + descs[indiceEncontrado] + "\n"
-                + "Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
-                + "Valor: R$ " + String.format("%.2f", valores[indiceEncontrado]) + "\n"
-                + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
-        JOptionPane.showMessageDialog(null, msg);
-    }
-
-    /**
      * Exibe o menu principal do sistema de contas a pagar, permitindo ao
      * usuário selecionar entre as opções de cadastro de contas, baixa de conta,
      * relatórios ou saída do programa.
@@ -751,7 +664,7 @@ public class Principal {
             } else {
 
                 // Exibe os dados atuais da conta
-                exibirConta(indice);
+                Biblioteca.exibirConta(documentos, descs, beneficiarios, valores, vencimentos, indice);
 
                 // Solicita os novos dados
                 String novaDesc = JOptionPane.showInputDialog(
