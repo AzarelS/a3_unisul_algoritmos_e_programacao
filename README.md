@@ -3,7 +3,7 @@
 ## Universidade do Sul de Santa Catarina (UNISUL)
 
 **Unidade Curricular:** Algoritmos e Programação
-**Professor:** Osmar de Oliveira Braz 
+**Professor:** Osmar de Oliveira Braz Júnior
 
 ## Integrantes do Grupo
 
@@ -77,21 +77,29 @@ Principal.java
 
 ```bash
 📁 src/
-└── Principal.java
-
+└── 📁 main/
+    └── 📁 java/
+        ├── Principal.java
+        └── Biblioteca.java
+📄 pom.xml
 📄 .gitignore
 📄 LICENSE
 📄 README.md
 
 ```
 
+---
+
 ## Conclusão
 
-O desenvolvimento do sistema de contas a pagar permitiu a aplicação prática dos conhecimentos adquiridos na disciplina de Algoritmos e Programação, proporcionando a criação de uma solução funcional para o gerenciamento de despesas e controle financeiro empresarial.
+O desenvolvimento do sistema de contas a pagar permitiu a aplicação prática dos conhecimentos adquiridos na disciplina de Algoritmos e Programação, como estruturas de dados em vetores paralelos, modularização em sub-rotinas, validação defensiva e ordenação cronológica, proporcionando a criação de uma solução funcional para o gerenciamento de despesas e controle financeiro empresarial.
 
 Além dos conhecimentos técnicos, o trabalho contribuiu significativamente para o desenvolvimento de habilidades relacionadas ao trabalho em equipe, divisão de tarefas e utilização do GitHub para o versionamento e acompanhamento contínuo do projeto, ferramentas essenciais na prática profissional de tecnologia.
 
 Conclui-se que a atividade proporcionou uma experiência prática importante para reforçar os conteúdos estudados em sala de aula, aproximando os integrantes do grupo de situações reais encontradas no ambiente corporativo e no desenvolvimento de sistemas.
 
+## Notas de Desenvolvimento
+
+- **Padronização de Commits:** O histórico do repositório segue a convenção *Conventional Commits* (`feat`, `fix`, `refactor`, `style`, `docs`).
 
 ---
