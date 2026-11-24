@@ -24,24 +24,11 @@ public class Principal {
 
     //Controla e registra o número de contas cadastradas
     static int total = 0;
-
-    //Variavel de verificação se um dado é ou não valido
-    static boolean valido = false;
-
-    //Variavel que define o número do documento
-    static int documento;
-
-    //Variavel reponsavel por confirmar(S/N) um procedimento
-    static char resposta = 0;
-
+    
     //Variaveis responsaveis pela escolha de opçoes nos menus
     static int menuprincipal, cadcontas, relatorios;
 
     public static void main(String[] args) {
-
-        // Variaveis:
-        int baicontas;
-        // baicontas: baixa de conta
 
         //Controla e registra o número de contas cadastradas
         do {

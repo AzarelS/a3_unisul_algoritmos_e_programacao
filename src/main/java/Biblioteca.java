@@ -4,34 +4,9 @@ import java.time.LocalDate;
 
 public class Biblioteca {
 
-    //Constante para tamanho limite dos vetores
-    static int n = 100;
-
-    //Vetores e contador declarados fora das subrotinas
-    //Registra em vetores todos os documentos cadastrados
-    static int documentos[] = new int[n];
-
-    //Registra em vetores todos os beneficiarios cadastrados
-    static String beneficiarios[] = new String[n];
-
-    //Registra em vetores as descrições de cada conta cadastrada
-    static String descs[] = new String[n];
-
-    //Registra em vetores todos os valores cadastrados
-    static double valores[] = new double[n];
-
-    //Registra em vetores todas as datas de vencimento cadastradas
-    static String vencimentos[] = new String[n];
-
-    //Controla e registra o número de contas cadastradas
-    static int total = 0;
-
     //Variavel de verificação se um dado é ou não valido
     static boolean valido = false;
-
-    //Variavel reponsavel por confirmar(S/N) um procedimento
-    static char resposta = 0;
-
+    
     //Variavel que define o número do documento
     static int documento;
 
@@ -739,7 +714,7 @@ public class Biblioteca {
      * do documento, localizando a conta cadastrada, permitindo a modificação de
      * seus dados e solicitando a confirmação do usuário antes de salvar as
      * alterações.
-     * 
+     *
      * @param documentos Vetor com os números dos documentos.
      * @param descs Vetor com as descrições das contas.
      * @param beneficiarios Vetor com os beneficiários.
@@ -871,6 +846,7 @@ public class Biblioteca {
 
         } while (novaAlteracao == 'S');
     }
+
     /**
      * Gerencia o fluxo completo de inclusão de novas contas a pagar (Tela
      * 1.1.1), coordenando a leitura, validação, confirmação e armazenamento nos
