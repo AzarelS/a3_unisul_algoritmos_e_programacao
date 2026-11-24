@@ -35,12 +35,12 @@ public class Principal {
     static char resposta = 0;
 
     //Variaveis responsaveis pela escolha de opçoes nos menus
-    static int menuprincipal, cadcontas;
+    static int menuprincipal, cadcontas, relatorios;
 
     public static void main(String[] args) {
 
         // Variaveis:
-        int baicontas, relatorios;
+        int baicontas;
         // baicontas: baixa de conta
 
         //Controla e registra o número de contas cadastradas
@@ -97,34 +97,8 @@ public class Principal {
                     // Menu de Relatorio de Contas
                     relatorios = -1;
                     do {
-                        String entradaRel = JOptionPane.showInputDialog("XYZ COMÉRCIO DE PRODUTOS LTDA.\n"
-                                + "SISTEMA DE CONTAS A PAGAR\n\n"
-                                + "RELATÓRIOS\n\n"
-                                + "1 - Contas a pagar\n"
-                                + "2 - Contas atrasadas\n"
-                                + "3 - Balanço de despesas\n"
-                                + "0 - Retornar\n\n"
-                                + "Digite a opção desejada:");
 
-                        if (entradaRel == null) {
-                            relatorios = 0;
-                        } else {
-                            entradaRel = entradaRel.trim();
-                            valido = !entradaRel.isEmpty();
-
-                            for (int i = 0; i < entradaRel.length(); i++) {
-                                if (!Character.isDigit(entradaRel.charAt(i))) {
-                                    valido = false;
-                                    break;
-                                }
-                            }
-
-                            if (valido) {
-                                relatorios = Integer.parseInt(entradaRel);
-                            } else {
-                                relatorios = -1;
-                            }
-                        }
+                        menuRelatorios();
 
                         // Verificação da opção escolhida para o menu de Relatorio de Contas
                         switch (relatorios) {
@@ -449,133 +423,21 @@ public class Principal {
     }
 
     /**
-     * Gerencia o processo de alteração de contas a pagar, solicitando o número
-     * do documento, localizando a conta cadastrada, permitindo a modificação de
-     * seus dados e solicitando a confirmação do usuário antes de salvar as
-     * alterações.
+     * Exibe o menu de relatórios do sistema de contas a pagar, permitindo ao
+     * usuário selecionar entre as opções de contas a pagar, contas atrasadas,
+     * balanço de despesas ou retornar ao menu anterior.
+     *
+     * @return A opção escolhida pelo usuário.
      */
-    public static void alterarConta() {
-        char novaAlteracao = 'N';
-
-        do {
-            String entradaDoc = JOptionPane.showInputDialog(
-                    "XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                    + "SISTEMA DE CONTAS A PAGAR\n\n"
-                    + "ALTERAÇÃO DE CONTA\n\n"
-                    + "Informe o número do documento da conta:");
-
-            if (entradaDoc == null) {
-                break;
-            }
-
-            entradaDoc = entradaDoc.trim();
-
-            // Validação do documento
-            valido = true;
-
-            for (int i = 0; i < entradaDoc.length(); i++) {
-                if (Character.isDigit(entradaDoc.charAt(i)) == false) {
-                    valido = false;
-                    break;
-                }
-            }
-
-            if (valido == false) {
-                JOptionPane.showMessageDialog(null,
-                        "Por favor, digite um número de documento válido!");
-                continue;
-            }
-
-            documento = Integer.parseInt(entradaDoc);
-
-            // Busca da conta cadastrada
-            int indice = buscaDoc(documento);
-
-            if (indice == -1) {
-                JOptionPane.showMessageDialog(null,
-                        "Documento não encontrado.");
-            } else {
-
-                // Exibe os dados atuais da conta
-                Biblioteca.exibirConta(documentos, descs, beneficiarios, valores, vencimentos, indice);
-
-                // Solicita os novos dados
-                String novaDesc = JOptionPane.showInputDialog(
-                        "Informe a nova descrição:",
-                        descs[indice]);
-
-                if (novaDesc == null) {
-                    break;
-                }
-
-                String novoBeneficiario = JOptionPane.showInputDialog(
-                        "Informe o novo beneficiário:",
-                        beneficiarios[indice]);
-
-                if (novoBeneficiario == null) {
-                    break;
-                }
-
-                double novoValor = lerValorValido();
-
-                if (novoValor == -1) {
-                    break;
-                }
-
-                String novoVencimento = lerDataValida();
-
-                if (novoVencimento == null) {
-                    break;
-                }
-
-                // Exibe os novos dados para confirmação
-                String mensagem = String.format(
-                        "XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                        + "SISTEMA DE CONTAS A PAGAR\n\n"
-                        + "ALTERAÇÃO DE CONTA\n\n"
-                        + "Documento: %d\n"
-                        + "Descrição: %s\n"
-                        + "Beneficiario: %s\n"
-                        + "Valor: R$ %.2f\n"
-                        + "Vencimento: %s\n\n"
-                        + "CONFIRMA A ALTERAÇÃO? (S/N)",
-                        documentos[indice],
-                        novaDesc,
-                        novoBeneficiario,
-                        novoValor,
-                        novoVencimento);
-
-                String resposta = JOptionPane.showInputDialog(mensagem);
-
-                if (resposta != null && !resposta.trim().isEmpty()
-                        && Character.toUpperCase(resposta.trim().charAt(0)) == 'S') {
-
-                    // Atualiza os dados nos vetores
-                    descs[indice] = novaDesc;
-                    beneficiarios[indice] = novoBeneficiario;
-                    valores[indice] = novoValor;
-                    vencimentos[indice] = novoVencimento;
-
-                    JOptionPane.showMessageDialog(null,
-                            "Conta alterada com sucesso!");
-
-                } else {
-                    JOptionPane.showMessageDialog(null,
-                            "Alteração cancelada! Os dados não foram modificados.");
-                }
-            }
-
-            // Verifica se deseja alterar outra conta
-            String resp = JOptionPane.showInputDialog(
-                    "Deseja alterar outra conta? (S/N)");
-
-            if (resp != null && !resp.trim().isEmpty()) {
-                novaAlteracao = Character.toUpperCase(
-                        resp.trim().charAt(0));
-            } else {
-                novaAlteracao = 'N';
-            }
-
-        } while (novaAlteracao == 'S');
+    public static int menuRelatorios() {
+        relatorios = Integer.parseInt(JOptionPane.showInputDialog("XYZ COMÉRCIO DE PRODUTOS LTDA.\n"
+                + "SISTEMA DE CONTAS A PAGAR\n\n"
+                + "RELATÓRIOS\n\n"
+                + "1 - Contas a pagar\n"
+                + "2 - Contas atrasadas\n"
+                + "3 - Balanço de despesas\n"
+                + "0 - Retornar\n\n"
+                + "Digite a opção desejada:"));
+        return (relatorios);
     }
 }

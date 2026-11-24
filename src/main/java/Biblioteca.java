@@ -1,3 +1,4 @@
+
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
 
@@ -542,6 +543,7 @@ public class Biblioteca {
 
         } while (novaconsulta == 'S');
     }
+
     /**
      * Solicita ao usuário o número do documento para excluir a conta via caixa
      * de diálogo, validando se a entrada contém apenas dígitos numéricos.
@@ -549,7 +551,7 @@ public class Biblioteca {
      * @return O número do documento validado, ou 'N' caso o usuário cancele a
      * operação.
      */
-    public static void ExcConta(int documentos[], String[] descs, String[] beneficiarios,double[] valores,String[] vencimentos,int total) {
+    public static void ExcConta(int documentos[], String[] descs, String[] beneficiarios, double[] valores, String[] vencimentos, int total) {
         char NovaExc = 'N';
         do {
             String ContaExc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
@@ -629,6 +631,7 @@ public class Biblioteca {
 
         } while (NovaExc == 'S');
     }
+
     /**
      * Solicita ao usuário o número do documento para Baixar a conta via caixa
      * de diálogo, validando se a entrada contém apenas dígitos numéricos.
@@ -636,7 +639,7 @@ public class Biblioteca {
      * @return O número do documento validado, ou 'N' caso o usuário cancele a
      * operação.
      */
-    public static void baixaconta(int documentos[], String[] descs, String[] beneficiarios,double[] valores,String[] vencimentos,int total) {
+    public static void baixaconta(int documentos[], String[] descs, String[] beneficiarios, double[] valores, String[] vencimentos, int total) {
         char NovaBaixa = 'N';
         do {
             String baixacontas = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
@@ -707,6 +710,7 @@ public class Biblioteca {
             }
         } while (NovaBaixa == 'S');
     }
+
     /**
      * Gerencia o processo de alteração de contas a pagar, solicitando o número
      * do documento, localizando a conta cadastrada, permitindo a modificação de
