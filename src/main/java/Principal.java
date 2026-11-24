@@ -89,7 +89,7 @@ public class Principal {
                 break;
 
                 case 2: {
-                    baixaconta();
+                    Biblioteca.baixaconta(documentos, descs, beneficiarios, valores, vencimentos, total);
                     break;
                 }
                 case 3: {
@@ -401,85 +401,6 @@ public class Principal {
         valores[total] = valor;
         vencimentos[total] = vencimento;
         total++;
-    }
-
-    /**
-     * Solicita ao usuário o número do documento para Baixar a conta via caixa
-     * de diálogo, validando se a entrada contém apenas dígitos numéricos.
-     *
-     * @return O número do documento validado, ou 'N' caso o usuário cancele a
-     * operação.
-     */
-    public static void baixaconta() {
-        char NovaBaixa = 'N';
-        do {
-            String baixacontas = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
-                    + "SISTEMA DE CONTAS A PAGAR\n\n"
-                    + "MOVIMENTAÇÃO - BAIXA DE CONTA\n\n"
-                    + "Informe o número do documento a ser movimentado:");
-            if (baixacontas == null) {
-                break;
-            }
-            baixacontas = baixacontas.trim();
-            valido = !baixacontas.isEmpty();
-
-            for (int i = 0; i < baixacontas.length(); i++) {
-                if (!Character.isDigit(baixacontas.charAt(i))) {
-                    valido = false;
-                    break;
-                }
-            }
-            if (!valido) {
-                JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
-                NovaBaixa = 'S';
-                continue;
-            }
-
-            int contabaixa = Integer.parseInt(baixacontas);
-            int indiceencontrado = -1;
-            for (int i = 0; i < total; i++) {
-                if (documentos[i] == contabaixa) {
-                    indiceencontrado = i;
-                    break;
-                }
-            }
-            double valorfinal = 0;
-            if (indiceencontrado != -1) {
-                String msg = ("XYZ COMERCIO DE PRODUTOS LTDA.\n")
-                        + "SISTEMA DE CONTAS A PAGAR\n\n"
-                        + "MOVIMENTAÇÃO - BAIXA DE CONTA\n\n"
-                        + "Documento: " + documentos[indiceencontrado] + "\n"
-                        + "Descrição: " + descs[indiceencontrado] + "\n"
-                        + "Beneficiário: " + beneficiarios[indiceencontrado] + "\n"
-                        + "Valor atual: R$" + String.format("%.2f", valores[indiceencontrado]) + "\n";
-
-                double valordiminuir = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor a diminuir:"));
-                JOptionPane.showMessageDialog(null, msg);
-                char MovimentacaoConta = JOptionPane.showInputDialog(null, "Você confirma essa ação? (S/N):").charAt(0);
-                if (MovimentacaoConta == 'S' || MovimentacaoConta == 's') {
-                    for (int i = indiceencontrado; i < total; i++) {
-                        valorfinal = valores[indiceencontrado] - valordiminuir;
-                        valores[indiceencontrado] = valorfinal;
-                        JOptionPane.showMessageDialog(null, "Conta baixada com sucesso!");
-                    }
-                } else {
-                    if (MovimentacaoConta == 'N' || MovimentacaoConta == 'n') {
-                        JOptionPane.showMessageDialog(null, "Baixa de conta cancelada");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Opção inválida!");
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Documento não encontrado!"
-                        + "");
-            }
-            String resp = JOptionPane.showInputDialog("Deseja fazer outra baixa? (S/N)");
-            if (resp != null && !resp.trim().isEmpty()) {
-                NovaBaixa = Character.toUpperCase(resp.trim().charAt(0));
-            } else {
-                NovaBaixa = 'N';
-            }
-        } while (NovaBaixa == 'S');
     }
 
     /**
