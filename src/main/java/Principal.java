@@ -25,6 +25,15 @@ public class Principal {
     //Controla e registra o número de contas cadastradas
     static int total = 0;
     
+    //Registra se um determinado procedimento é valido
+    static boolean valido = false;
+
+    //Variavel que define o número do documento
+    static int documento;
+
+    //Variavel reponsavel por confirmar(S/N) um procedimento
+    static char resposta = 0;
+    
     //Variaveis responsaveis pela escolha de opçoes nos menus
     static int menuprincipal, cadcontas, relatorios;
 
@@ -57,7 +66,7 @@ public class Principal {
                                 break;
                             }
                             case 4: {
-                                total = Biblioteca.ExcConta(documentos, descs, beneficiarios, valores, vencimentos, total);
+                                ExcConta();
                                 break;
                             }
 
@@ -330,5 +339,113 @@ public class Principal {
             }
 
         } while (novaAlteracao == 'S');
+    }
+    /**
+     * Solicita ao usuário o número do documento para excluir a conta via caixa
+     * de diálogo, validando se a entrada contém apenas dígitos numéricos.
+     *
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores Vetor com os valores das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade atual de contas cadastradas.
+     * @return O número do documento validado, ou 'N' caso o usuário cancele a
+     * operação.
+     */
+    public static int ExcConta() {
+
+        if (total == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta cadastrada no sistema.");
+            return total;
+        }
+
+        char NovaExc = 'N';
+        do {
+            String ContaExc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "SISTEMA DE CONTAS A PAGAR\n\n"
+                    + "EXCLUSÃO DE CONTA\n\n"
+                    + "Informe o número do documento da conta a ser excluída:");
+            if (ContaExc == null) {
+                break;
+            }
+            ContaExc = ContaExc.trim();
+
+            valido = !ContaExc.isEmpty();
+
+            for (int i = 0; i < ContaExc.length(); i++) {
+                if (!Character.isDigit(ContaExc.charAt(i))) {
+                    valido = false;
+                    break;
+                }
+            }
+
+            if (!valido) {
+                JOptionPane.showMessageDialog(null, "Por favor, digite um número de documento válido.");
+                NovaExc = 'S';
+                continue;
+            }
+
+            int docExc = Integer.parseInt(ContaExc);
+
+            int indiceEncontrado = -1;
+
+            for (int i = 0; i < total; i++) {
+                if (documentos[i] == docExc) {
+                    indiceEncontrado = i;
+                    break;
+                }
+            }
+
+            if (indiceEncontrado != -1) {
+                String msg = "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                        + "SISTEMA DE CONTAS A PAGAR\n\n"
+                        + "EXCLUSÃO DE CONTA\n\n"
+                        + "Documento: " + documentos[indiceEncontrado] + "\n"
+                        + "Descrição: " + descs[indiceEncontrado] + "\n"
+                        + "Beneficiário: " + beneficiarios[indiceEncontrado] + "\n"
+                        + "Valor: R$" + String.format("%.2f", valores[indiceEncontrado]) + "\n"
+                        + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
+                JOptionPane.showMessageDialog(null, msg);
+
+                String confirmacao = JOptionPane.showInputDialog(null, "Você confirma essa ação? (S/N)");
+                if (confirmacao != null && !confirmacao.trim().isEmpty()) {
+                    char DelConta = Character.toUpperCase(confirmacao.trim().charAt(0));
+                    if (DelConta == 'S') {
+                        for (int i = indiceEncontrado; i < total - 1; i++) {
+                            documentos[i] = documentos[i + 1];
+                            descs[i] = descs[i + 1];
+                            beneficiarios[i] = beneficiarios[i + 1];
+                            valores[i] = valores[i + 1];
+                            vencimentos[i] = vencimentos[i + 1];
+                        }
+                        total--;
+                        JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
+                    } else if (DelConta == 'N') {
+                        JOptionPane.showMessageDialog(null, "EXCLUSÃO CANCELADA!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Opção inválida!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "EXCLUSÃO CANCELADA!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Documento não encontrado!");
+            }
+
+            if (total == 0) {
+                break;
+            }
+
+            String resp = JOptionPane.showInputDialog("Deseja fazer outra Exclusão? (S/N)?");
+
+            if (resp != null && !resp.trim().isEmpty()) {
+                NovaExc = Character.toUpperCase(resp.trim().charAt(0));
+            } else {
+                NovaExc = 'N';
+            }
+
+        } while (NovaExc == 'S');
+        return total;
     }
 }
