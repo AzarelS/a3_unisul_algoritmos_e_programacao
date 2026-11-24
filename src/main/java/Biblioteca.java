@@ -548,10 +548,23 @@ public class Biblioteca {
      * Solicita ao usuário o número do documento para excluir a conta via caixa
      * de diálogo, validando se a entrada contém apenas dígitos numéricos.
      *
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores Vetor com os valores das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade atual de contas cadastradas.
      * @return O número do documento validado, ou 'N' caso o usuário cancele a
      * operação.
      */
-    public static void ExcConta(int documentos[], String[] descs, String[] beneficiarios, double[] valores, String[] vencimentos, int total) {
+    public static int ExcConta(int[] documentos, String[] descs, String[] beneficiarios,
+            double[] valores, String[] vencimentos, int total) {
+
+        if (total == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta cadastrada no sistema.");
+            return total;
+        }
+
         char NovaExc = 'N';
         do {
             String ContaExc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
@@ -590,7 +603,7 @@ public class Biblioteca {
             }
 
             if (indiceEncontrado != -1) {
-                String msg = ("XYZ COMERCIO DE PRODUTOS LTDA.\n")
+                String msg = "XYZ COMERCIO DE PRODUTOS LTDA.\n"
                         + "SISTEMA DE CONTAS A PAGAR\n\n"
                         + "EXCLUSÃO DE CONTA\n\n"
                         + "Documento: " + documentos[indiceEncontrado] + "\n"
@@ -599,26 +612,34 @@ public class Biblioteca {
                         + "Valor: R$" + String.format("%.2f", valores[indiceEncontrado]) + "\n"
                         + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
                 JOptionPane.showMessageDialog(null, msg);
-                char DelConta = JOptionPane.showInputDialog(null, "Você confirma essa ação? (S/N)").charAt(0);
-                if (DelConta == 'S' || DelConta == 's') {
-                    for (int i = indiceEncontrado; i < total - 1; i++) {
-                        documentos[i] = documentos[i + 1];
-                        descs[i] = descs[i + 1];
-                        beneficiarios[i] = beneficiarios[i + 1];
-                        valores[i] = valores[i + 1];
-                        vencimentos[i] = vencimentos[i + 1];
-                    }
-                    total--;
-                    JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
-                } else {
-                    if (DelConta == 'N' || DelConta == 'n') {
+
+                String confirmacao = JOptionPane.showInputDialog(null, "Você confirma essa ação? (S/N)");
+                if (confirmacao != null && !confirmacao.trim().isEmpty()) {
+                    char DelConta = Character.toUpperCase(confirmacao.trim().charAt(0));
+                    if (DelConta == 'S') {
+                        for (int i = indiceEncontrado; i < total - 1; i++) {
+                            documentos[i] = documentos[i + 1];
+                            descs[i] = descs[i + 1];
+                            beneficiarios[i] = beneficiarios[i + 1];
+                            valores[i] = valores[i + 1];
+                            vencimentos[i] = vencimentos[i + 1];
+                        }
+                        total--;
+                        JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
+                    } else if (DelConta == 'N') {
                         JOptionPane.showMessageDialog(null, "EXCLUSÃO CANCELADA!");
                     } else {
                         JOptionPane.showMessageDialog(null, "Opção inválida!");
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "EXCLUSÃO CANCELADA!");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Documento não encontrado!");
+            }
+
+            if (total == 0) {
+                break;
             }
 
             String resp = JOptionPane.showInputDialog("Deseja fazer outra Exclusão? (S/N)?");
@@ -630,6 +651,8 @@ public class Biblioteca {
             }
 
         } while (NovaExc == 'S');
+
+        return total;
     }
 
     /**
@@ -716,8 +739,15 @@ public class Biblioteca {
      * do documento, localizando a conta cadastrada, permitindo a modificação de
      * seus dados e solicitando a confirmação do usuário antes de salvar as
      * alterações.
+     * 
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores Vetor com os valores das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade de contas cadastradas.
      */
-    public static void alterarConta() {
+    public static void alterarConta(int[] documentos, String[] descs, String[] beneficiarios, double[] valores, String[] vencimentos, int total) {
         char novaAlteracao = 'N';
 
         do {
@@ -752,7 +782,7 @@ public class Biblioteca {
             documento = Integer.parseInt(entradaDoc);
 
             // Busca da conta cadastrada
-            int indice = buscaDoc(documento);
+            int indice = buscaDoc(documentos, total, documento);
 
             if (indice == -1) {
                 JOptionPane.showMessageDialog(null,
@@ -840,5 +870,267 @@ public class Biblioteca {
             }
 
         } while (novaAlteracao == 'S');
+    }
+    /**
+     * Gerencia o fluxo completo de inclusão de novas contas a pagar (Tela
+     * 1.1.1), coordenando a leitura, validação, confirmação e armazenamento nos
+     * vetores paralelos.
+     *
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores Vetor com os valores das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade atual de contas cadastradas.
+     * @return A quantidade atualizada de contas cadastradas após as inclusões.
+     */
+    public static int incluirConta(int[] documentos, String[] descs, String[] beneficiarios,
+            double[] valores, String[] vencimentos, int total) {
+        char novocad = 'N';
+        do {
+            documento = lerDoc(documentos, total);
+            if (documento == -1) {
+                break;
+            }
+
+            String desc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Adicione uma descrição a conta:");
+            if (desc == null) {
+                break;
+            }
+
+            String beneficiario = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Informe o nome do beneficiário:");
+            if (beneficiario == null) {
+                break;
+            }
+
+            double valor = lerValorValido();
+            if (valor == -1) {
+                break;
+            }
+
+            String vencimento = lerDataValida();
+            if (vencimento == null) {
+                break;
+            }
+
+            if (confirmaInclusao(documento, desc, beneficiario, valor, vencimento)) {
+                total = salvaConta(documentos, descs, beneficiarios, valores, vencimentos, total,
+                        documento, desc, beneficiario, valor, vencimento);
+                JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Inclusão cancelada, os dados não foram salvos!");
+            }
+
+            String confirmanovocad = JOptionPane.showInputDialog("Deseja cadastrar outra conta? (S/N)");
+            if (confirmanovocad != null && !confirmanovocad.trim().isEmpty()) {
+                novocad = Character.toUpperCase(confirmanovocad.trim().charAt(0));
+            } else {
+                novocad = 'N';
+            }
+
+        } while (novocad == 'S');
+
+        return total;
+    }
+
+    /**
+     * Pesquisa um número de documento no vetor de documentos cadastrados.
+     *
+     * @param documentos Vetor com os números dos documentos.
+     * @param total Quantidade de contas cadastradas.
+     * @param pesquisaDoc O número do documento que se deseja localizar.
+     * @return O índice (posição) do documento no vetor, ou -1 caso não seja
+     * encontrado.
+     */
+    public static int buscaDoc(int[] documentos, int total, int pesquisaDoc) {
+        for (int i = 0; i < total; i++) {
+            if (documentos[i] == pesquisaDoc) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Solicita ao usuário o número do documento via caixa de diálogo, validando
+     * se a entrada contém apenas números e se o documento ainda não existe.
+     *
+     * @param documentos Vetor com os números dos documentos já cadastrados.
+     * @param total Quantidade atual de contas cadastradas.
+     * @return O número do documento validado, ou -1 caso o usuário cancele a
+     * operação.
+     */
+    public static int lerDoc(int[] documentos, int total) {
+        documento = -1;
+        valido = false;
+
+        while (valido == false) {
+            String entradadoc = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Informe o número do Documento:");
+            if (entradadoc == null) {
+                return -1;
+            }
+
+            entradadoc = entradadoc.trim();
+            if (!entradadoc.matches("\\d+")) {
+                JOptionPane.showMessageDialog(null, "Digite um número de documento válido!");
+                continue;
+            }
+
+            documento = Integer.parseInt(entradadoc);
+
+            if (buscaDoc(documentos, total, documento) != -1) {
+                JOptionPane.showMessageDialog(null, "Documento já cadastrado, tente outro.");
+                continue;
+            }
+            valido = true;
+        }
+        return documento;
+    }
+
+    /**
+     * Solicita e valida o valor monetário da conta, garantindo que seja um
+     * número válido (aceitando ponto ou vírgula) e maior que zero.
+     *
+     * @return O valor da conta validado, ou -1 caso o usuário cancele a
+     * operação.
+     */
+    public static double lerValorValido() {
+        double valor = -1;
+        valido = false;
+        while (valido == false) {
+            String entradavalor = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Informe o valor (R$):  ");
+            if (entradavalor == null) {
+                return -1;
+            }
+
+            entradavalor = entradavalor.trim();
+
+            if (!entradavalor.matches("\\d+([\\.,]\\d+)?")) {
+                JOptionPane.showMessageDialog(null, "Digite um valor válido!");
+                continue;
+            }
+
+            valor = Double.parseDouble(entradavalor.replace(",", "."));
+
+            if (valor <= 0) {
+                JOptionPane.showMessageDialog(null, "O valor deve ser maior que R$0.00");
+                continue;
+            }
+            valido = true;
+        }
+        return valor;
+    }
+
+    /**
+     * Solicita e valida a data de vencimento da conta no formato DD/MM/AAAA,
+     * verificando os limites válidos de dia, mês e ano.
+     *
+     * @return A data de vencimento formatada e validada, ou null caso o usuário
+     * cancele.
+     */
+    public static String lerDataValida() {
+        String vencimento = "";
+        valido = false;
+
+        while (valido == false) {
+            vencimento = JOptionPane.showInputDialog("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "INCLUSÃO DE CONTA\n\n"
+                    + "Informe a data de vencimento:\n"
+                    + "(DD/MM/AAAA):");
+
+            if (vencimento == null) {
+                return null;
+            }
+
+            vencimento = vencimento.trim();
+            if (!vencimento.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                JOptionPane.showMessageDialog(null, "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                        + "INCLUSÃO DE CONTA\n\n"
+                        + "Informe uma data válida no formato (DD/MM/AAAA).");
+                continue;
+            }
+
+            int dia = Integer.parseInt(vencimento.substring(0, 2));
+            int mes = Integer.parseInt(vencimento.substring(3, 5));
+            int ano = Integer.parseInt(vencimento.substring(6, 10));
+
+            if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2100) {
+                JOptionPane.showMessageDialog(null, "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                        + "INCLUSÃO DE CONTA\n\n"
+                        + "Data inválida! Verifique o dia, mês e ano.");
+                continue;
+            }
+            valido = true;
+        }
+        return vencimento;
+    }
+
+    /**
+     * Exibe um resumo com todos os dados preenchidos da conta e solicita a
+     * confirmação do usuário (S/N) antes de efetivar o cadastro.
+     *
+     * @param documento Número do documento da conta.
+     * @param desc Descrição da despesa.
+     * @param beneficiario Nome do beneficiário do pagamento.
+     * @param valor Valor da despesa.
+     * @param vencimento Data de vencimento no formato DD/MM/AAAA.
+     * @return true se o usuário confirmar com 'S', ou false caso recuse ou
+     * cancele.
+     */
+    public static boolean confirmaInclusao(int documento, String desc, String beneficiario, double valor, String vencimento) {
+        String msgconfirma = String.format("XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                + "SISTEMA DE CONTAS A PAGAR\n\n"
+                + "INCLUSÃO DE CONTA\n\n"
+                + "Documento: %d\n"
+                + "Descrição: %s\n"
+                + "Beneficiário: %s\n"
+                + "Valor: R$ %.2f\n"
+                + "Vencimento: %s\n\n"
+                + "CONFIRMA INCLUSÃO? (S/N)", documento, desc, beneficiario, valor, vencimento);
+
+        String confirmaconta = JOptionPane.showInputDialog(msgconfirma);
+
+        if (confirmaconta != null && !confirmaconta.trim().isEmpty()) {
+            char confirmainc = Character.toUpperCase(confirmaconta.trim().charAt(0));
+            return confirmainc == 'S';
+        }
+        return false;
+    }
+
+    /**
+     * Armazena os dados validados de uma nova conta na próxima posição
+     * disponível dos vetores paralelos e incrementa o contador de registros.
+     *
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores Vetor com os valores das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade atual de contas cadastradas.
+     * @param documento Número do documento da conta.
+     * @param desc Descrição da despesa.
+     * @param beneficiario Nome do beneficiário do pagamento.
+     * @param valor Valor da despesa.
+     * @param vencimento Data de vencimento no formato DD/MM/AAAA.
+     * @return O novo total de contas cadastradas (total + 1).
+     */
+    public static int salvaConta(int[] documentos, String[] descs, String[] beneficiarios,
+            double[] valores, String[] vencimentos, int total,
+            int documento, String desc, String beneficiario, double valor, String vencimento) {
+
+        documentos[total] = documento;
+        descs[total] = desc;
+        beneficiarios[total] = beneficiario;
+        valores[total] = valor;
+        vencimentos[total] = vencimento;
+        return total + 1;
     }
 }
