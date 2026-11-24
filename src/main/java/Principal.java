@@ -49,7 +49,7 @@ public class Principal {
                                 break;
                             }
                             case 2: {
-                                Biblioteca.alterarConta(documentos, descs, beneficiarios, valores, vencimentos, total);
+                                alterarConta();
                                 break;
                             }
                             case 3: {
@@ -193,5 +193,142 @@ public class Principal {
                 + "0 - Retornar\n\n"
                 + "Digite a opção desejada:"));
         return (relatorios);
+    }
+    /**
+     * Gerencia o processo de alteração de contas a pagar, solicitando o número
+     * do documento, localizando a conta cadastrada, permitindo a modificação de
+     * seus dados e solicitando a confirmação do usuário antes de salvar as
+     * alterações.
+     *
+     * @param documentos Vetor com os números dos documentos.
+     * @param descs Vetor com as descrições das contas.
+     * @param beneficiarios Vetor com os beneficiários.
+     * @param valores Vetor com os valores das contas.
+     * @param vencimentos Vetor com as datas de vencimento (DD/MM/AAAA).
+     * @param total Quantidade de contas cadastradas.
+     */
+    public static void alterarConta() {
+        char novaAlteracao = 'N';
+
+        do {
+            String entradaDoc = JOptionPane.showInputDialog(
+                    "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                    + "SISTEMA DE CONTAS A PAGAR\n\n"
+                    + "ALTERAÇÃO DE CONTA\n\n"
+                    + "Informe o número do documento da conta:");
+
+            if (entradaDoc == null) {
+                break;
+            }
+
+            entradaDoc = entradaDoc.trim();
+
+            // Validação do documento
+            valido = true;
+
+            for (int i = 0; i < entradaDoc.length(); i++) {
+                if (Character.isDigit(entradaDoc.charAt(i)) == false) {
+                    valido = false;
+                    break;
+                }
+            }
+
+            if (valido == false) {
+                JOptionPane.showMessageDialog(null,
+                        "Por favor, digite um número de documento válido!");
+                continue;
+            }
+
+            documento = Integer.parseInt(entradaDoc);
+
+            // Busca da conta cadastrada
+            int indice = buscaDoc(documentos, total, documento);
+
+            if (indice == -1) {
+                JOptionPane.showMessageDialog(null,
+                        "Documento não encontrado.");
+            } else {
+
+                // Exibe os dados atuais da conta
+                Biblioteca.exibirConta(documentos, descs, beneficiarios, valores, vencimentos, indice);
+
+                // Solicita os novos dados
+                String novaDesc = JOptionPane.showInputDialog(
+                        "Informe a nova descrição:",
+                        descs[indice]);
+
+                if (novaDesc == null) {
+                    break;
+                }
+
+                String novoBeneficiario = JOptionPane.showInputDialog(
+                        "Informe o novo beneficiário:",
+                        beneficiarios[indice]);
+
+                if (novoBeneficiario == null) {
+                    break;
+                }
+
+                double novoValor = lerValorValido();
+
+                if (novoValor == -1) {
+                    break;
+                }
+
+                String novoVencimento = lerDataValida();
+
+                if (novoVencimento == null) {
+                    break;
+                }
+
+                // Exibe os novos dados para confirmação
+                String mensagem = String.format(
+                        "XYZ COMERCIO DE PRODUTOS LTDA.\n"
+                        + "SISTEMA DE CONTAS A PAGAR\n\n"
+                        + "ALTERAÇÃO DE CONTA\n\n"
+                        + "Documento: %d\n"
+                        + "Descrição: %s\n"
+                        + "Beneficiario: %s\n"
+                        + "Valor: R$ %.2f\n"
+                        + "Vencimento: %s\n\n"
+                        + "CONFIRMA A ALTERAÇÃO? (S/N)",
+                        documentos[indice],
+                        novaDesc,
+                        novoBeneficiario,
+                        novoValor,
+                        novoVencimento);
+
+                String resposta = JOptionPane.showInputDialog(mensagem);
+
+                if (resposta != null && !resposta.trim().isEmpty()
+                        && Character.toUpperCase(resposta.trim().charAt(0)) == 'S') {
+
+                    // Atualiza os dados nos vetores
+                    descs[indice] = novaDesc;
+                    beneficiarios[indice] = novoBeneficiario;
+                    valores[indice] = novoValor;
+                    vencimentos[indice] = novoVencimento;
+
+                    JOptionPane.showMessageDialog(null,
+                            "Conta alterada com sucesso!");
+
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Alteração cancelada! Os dados não foram modificados.");
+                }
+            }
+
+            // Verifica se deseja alterar outra conta
+            String resp = JOptionPane.showInputDialog(
+                    "Deseja alterar outra conta? (S/N)");
+
+            if (resp != null && !resp.trim().isEmpty()) {
+                novaAlteracao = Character.toUpperCase(
+                        resp.trim().charAt(0));
+            } else {
+                novaAlteracao = 'N';
+            }
+
+        } while (novaAlteracao == 'S');
     }
 }
