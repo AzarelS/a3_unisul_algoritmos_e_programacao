@@ -123,24 +123,6 @@ public class Biblioteca {
     }
 
     /**
-     * Pesquisa um número de documento no vetor de documentos cadastrados.
-     *
-     * @param documentos Vetor com os números dos documentos.
-     * @param total Quantidade de contas cadastradas.
-     * @param pesquisaDoc O número do documento que se deseja localizar.
-     * @return O índice (posição) do documento no vetor, ou -1 caso não seja
-     * encontrado.
-     */
-    public static int buscaDocBiblioteca(int[] documentos, int total, int pesquisaDoc) {
-        for (int i = 0; i < total; i++) {
-            if (documentos[i] == pesquisaDoc) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
      * Solicita ao usuário o número do documento para consulta via caixa de
      * diálogo, validando se a entrada contém apenas dígitos numéricos.
      *
@@ -199,51 +181,6 @@ public class Biblioteca {
                 + "Valor: R$ " + String.format("%.2f", valores[indiceEncontrado]) + "\n"
                 + "Vencimento: " + vencimentos[indiceEncontrado] + "\n";
         JOptionPane.showMessageDialog(null, msg);
-    }
-
-    /**
-     * Gerencia o fluxo completo de consulta de contas a pagar, coordenando a
-     * leitura do documento, busca nos vetores e exibição dos dados.
-     *
-     * @param documentos Vetor com os números dos documentos.
-     * @param descs Vetor com as descrições das contas.
-     * @param beneficiarios Vetor com os beneficiários.
-     * @param valores Vetor com os valores das contas.
-     * @param vencimentos Vetor com as datas de vencimento.
-     * @param total Quantidade de contas cadastradas.
-     */
-    public static void consultarConta(int[] documentos, String[] descs, String[] beneficiarios,
-            double[] valores, String[] vencimentos, int total) {
-
-        if (total == 0) {
-            JOptionPane.showMessageDialog(null, "Nenhuma conta cadastrada no sistema.");
-            return;
-        }
-
-        char novaconsulta = 'N';
-        do {
-            int docConsulta = lerDocConsulta();
-            if (docConsulta == -1) {
-                break;
-            }
-
-            int indiceEncontrado = buscaDocBiblioteca(documentos, total, docConsulta);
-
-            if (indiceEncontrado != -1) {
-                exibirConta(documentos, descs, beneficiarios, valores, vencimentos, indiceEncontrado);
-            } else {
-                JOptionPane.showMessageDialog(null, "Documento não encontrado!");
-            }
-
-            String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)");
-
-            if (resp != null && !resp.trim().isEmpty()) {
-                novaconsulta = Character.toUpperCase(resp.trim().charAt(0));
-            } else {
-                novaconsulta = 'N';
-            }
-
-        } while (novaconsulta == 'S');
     }
 
     /**

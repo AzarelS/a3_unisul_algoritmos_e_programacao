@@ -63,7 +63,7 @@ public class Principal {
                                 break;
                             }
                             case 3: {
-                                Biblioteca.consultarConta(documentos, descs, beneficiarios, valores, vencimentos, total);
+                                consultarConta();
                                 break;
                             }
                             case 4: {
@@ -343,6 +343,42 @@ public class Principal {
         } while (novaAlteracao == 'S');
     }
 
+    /**
+     * Gerencia o fluxo completo de consulta de contas a pagar, coordenando a
+     * leitura do documento, busca nos vetores e exibição dos dados.
+     */
+    public static void consultarConta() {
+        if (total == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta cadastrada no sistema.");
+            return;
+        }
+
+        char novaconsulta = 'N';
+        do {
+            int docConsulta = Biblioteca.lerDocConsulta();
+            if (docConsulta == -1) {
+                break;
+            }
+
+            int indiceEncontrado = Biblioteca.buscaDoc(documentos, total, docConsulta);
+
+            if (indiceEncontrado != -1) {
+                Biblioteca.exibirConta(documentos, descs, beneficiarios, valores, vencimentos, indiceEncontrado);
+            } else {
+                JOptionPane.showMessageDialog(null, "Documento não encontrado!");
+            }
+
+            String resp = JOptionPane.showInputDialog("Deseja fazer uma nova consulta? (S/N)");
+
+            if (resp != null && !resp.trim().isEmpty()) {
+                novaconsulta = Character.toUpperCase(resp.trim().charAt(0));
+            } else {
+                novaconsulta = 'N';
+            }
+
+        } while (novaconsulta == 'S');
+    }
+    
     /**
      * Solicita ao usuário o número do documento para excluir a conta via caixa
      * de diálogo, validando se a entrada contém apenas dígitos numéricos.
