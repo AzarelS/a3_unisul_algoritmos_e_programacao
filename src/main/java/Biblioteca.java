@@ -2,6 +2,17 @@
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
 
+/**
+ * Classe utilitária do Sistema de Contas a Pagar da empresa XYZ Comércio de
+ * Produtos Ltda. Concentra exclusivamente as sub-rotinas auxiliares de leitura
+ * e validação de entradas, pesquisa em vetores, exibição de registros,
+ * conversão de datas para o padrão numérico AAAAMMDD e ordenação cronológica.
+ *
+ * @author Matheus Pereira Gonçalves Coelho
+ * @author Carlos Roberto Tosin Spada
+ * @author André Luís Tosin Spada
+ * @author Allan Losekann Muller
+ */
 public class Biblioteca {
 
     //Variavel de verificação se um dado é ou não valido

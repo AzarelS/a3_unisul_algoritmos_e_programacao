@@ -2,6 +2,19 @@
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
+/**
+ * /**
+ * Classe principal do Sistema de Contas a Pagar da empresa XYZ Comércio de
+ * Produtos Ltda. Responsável pelo armazenamento em memória dos vetores
+ * paralelos, pelo controle do fluxo de execução, pelos menus de navegação e
+ * pelas funções principais de cadastro, baixa de pagamentos e emissão de
+ * relatórios gerenciais.
+ *
+ * @author Matheus Pereira Gonçalves Coelho
+ * @author Carlos Roberto Tosin Spada
+ * @author André Luís Tosin Spada
+ * @author Allan Losekann Muller
+ */
 public class Principal {
 
     //Constante para tamanho limite dos vetores
@@ -38,6 +51,14 @@ public class Principal {
     //Variaveis responsaveis pela escolha de opçoes nos menus
     static int menuprincipal, cadcontas, relatorios;
 
+    /**
+     * Método principal e ponto de entrada da aplicação. Coordena o laço de
+     * navegação entre o menu principal, o submenu de cadastro de contas
+     * (inclusão, alteração, consulta e exclusão), a rotina de baixa de contas e
+     * o submenu de relatórios gerenciais.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         //Controla e registra o número de contas cadastradas
@@ -378,7 +399,7 @@ public class Principal {
 
         } while (novaconsulta == 'S');
     }
-    
+
     /**
      * Solicita ao usuário o número do documento para excluir a conta via caixa
      * de diálogo, validando se a entrada contém apenas dígitos numéricos.
